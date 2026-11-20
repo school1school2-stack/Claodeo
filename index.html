@@ -64,7 +64,6 @@
 </head>
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-    
     <div id="teacherLoginOverlay" class="hidden fixed inset-0 z-[100] bg-slate-100 flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden w-full max-w-md">
             <div class="bg-gradient-to-l from-indigo-950 via-indigo-900 to-slate-900 p-6 text-white text-center space-y-2">
@@ -137,6 +136,8 @@
                 <button id="migrateEmailsBtn" onclick="migrateEmailsToPrivate()" class="hidden bg-amber-500 hover:bg-amber-400 text-indigo-950 px-3 py-1.5 rounded-xl text-xs font-black transition flex items-center gap-1.5 shadow-sm" title="نقل إيميلات الطلاب إلى مكان خاص لا يراه الزوار">
                     <i class="fa-solid fa-shield-halved"></i> تأمين الإيميلات
                 </button>
+
+                <span id="teacherAccountBadge" class="hidden bg-indigo-950/80 border border-indigo-700 text-indigo-200 px-2.5 py-1.5 rounded-xl text-[11px] font-mono"></span>
 
                 <button id="teacherLogoutBtn" onclick="auth.signOut()" class="hidden bg-rose-700 hover:bg-rose-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border border-rose-600 shadow-sm" title="تسجيل الخروج">
                     <i class="fa-solid fa-right-from-bracket"></i> خروج
@@ -487,7 +488,6 @@
                             <h3 class="font-bold text-slate-800 text-sm">كشف المتابعة اليومية للطلاب </h3>
                         </div>
                         <div class="flex items-center gap-2 flex-wrap">
-                            
                             <div class="relative inline-block text-right">
                                 <select onchange="handleHeaderDropdownAction(this)" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm cursor-pointer focus:outline-none">
                                     <option value="" selected disabled>⚡ خيارات وإجراءات سريعة...</option>
@@ -500,7 +500,6 @@
                                 </select>
                             </div>
                             <input type="file" id="restoreBackupInput" accept=".json" onchange="restoreAttendanceBackupJSON(event)" class="hidden">
-
                         </div>
                     </div>
 
@@ -524,6 +523,7 @@
         <p>منصة المتابعة اليومية والسلوكية © 2026 | إعداد المعلم: <strong class="text-amber-300">أ/ عبدالعزيز الفيفي</strong> - ثانوية الأمير عبدالمجيد | جميع الحقوق محفوظة</p>
     </footer>
 
+    
     <div id="batchActionModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-2xl overflow-hidden transform transition-all flex flex-col max-h-[90vh]">
             <div class="p-5 bg-indigo-900 text-white flex justify-between items-center shrink-0">
@@ -535,7 +535,6 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
             </div>
-            
             <div class="p-6 space-y-4 overflow-y-auto custom-scrollbar flex-grow">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -549,19 +548,16 @@
                         </select>
                     </div>
                 </div>
-
                 <div id="batchCustomNoteWrapper" class="hidden bg-indigo-50/70 border border-indigo-200 rounded-xl p-3 space-y-1.5">
                     <label class="block text-xs font-black text-indigo-900">اكتب نص الملاحظة الخطية الجماعية:</label>
                     <textarea id="batchCustomNoteInput" rows="2" placeholder="اكتب الملاحظة هنا ليتم إضافتها لجميع الطلاب المختارين..." class="w-full bg-white border border-indigo-300 rounded-lg p-2.5 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none leading-relaxed"></textarea>
                 </div>
-
                 <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center justify-between">
                     <div class="flex items-center gap-2">
                         <input type="checkbox" id="allowAbsentBatchCheckbox" onchange="refreshBatchStudentsList()" class="w-4 h-4 text-amber-600 rounded border-amber-300 focus:ring-amber-500 cursor-pointer">
                         <label for="allowAbsentBatchCheckbox" class="text-xs font-bold text-amber-900 cursor-pointer">عرض ورصد الطلاب الغائبين في هذا التاريخ أيضاً (تجاوز قيد الحضور)</label>
                     </div>
                 </div>
-
                 <div class="bg-indigo-50 p-3 rounded-xl border border-indigo-100 flex items-center justify-between">
                     <span id="batchListHeaderLabel" class="text-xs font-bold text-indigo-900">الطلاب الحاضرون في هذا التاريخ:</span>
                     <div class="flex items-center gap-2">
@@ -569,15 +565,12 @@
                         <button type="button" onclick="toggleSelectAllBatch(false)" class="bg-white text-rose-700 border border-rose-200 px-2.5 py-1 rounded-lg text-xs font-bold hover:bg-rose-50 transition">إلغاء التحديد</button>
                     </div>
                 </div>
-
                 <div id="batchStudentsListContainer" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar p-2 bg-slate-50 border border-slate-200 rounded-xl"></div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2 shrink-0">
                 <button onclick="closeBatchActionModal()" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-200 font-semibold text-sm transition">إلغاء</button>
                 <button onclick="executeBatchAction()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-bold text-sm transition flex items-center gap-2 shadow">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    تنفيذ ورصد للطلاب المختارين
+                    <i class="fa-solid fa-cloud-arrow-up"></i> تنفيذ ورصد للطلاب المختارين
                 </button>
             </div>
         </div>
@@ -586,21 +579,14 @@
     <div id="lessonEditModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-md overflow-hidden transform transition-all">
             <div class="p-5 bg-indigo-900 text-white flex justify-between items-center">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-palette text-amber-300"></i>
-                    تحديث بيانات الحصة وألوان البطاقات
-                </h3>
-                <button onclick="closeLessonModal()" class="text-indigo-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-palette text-amber-300"></i> تحديث بيانات الحصة وألوان البطاقات</h3>
+                <button onclick="closeLessonModal()" class="text-indigo-200 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-5 space-y-4">
                 <div class="bg-indigo-50 text-indigo-900 px-3 py-2 rounded-xl text-xs font-bold border border-indigo-100 flex items-center justify-between">
                     <span>المادة: <strong>الكفايات اللغوية</strong></span>
                     <span>الفصل: <strong id="lessonModalClassLabel">--</strong></span>
                 </div>
-
                 <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 space-y-2">
                     <div class="flex items-center justify-between">
                         <label class="text-xs font-black text-slate-700">1. عنوان الدرس اليومي:</label>
@@ -615,7 +601,6 @@
                     </div>
                     <input type="text" id="lessonTitleInput" placeholder="مثال: الجملة الاسمية ونواسخها..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                 </div>
-
                 <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 space-y-2">
                     <div class="flex items-center justify-between">
                         <label class="text-xs font-black text-slate-700">2. المهمة المطلوبة اليوم:</label>
@@ -630,7 +615,6 @@
                     </div>
                     <input type="text" id="lessonHomeworkInput" placeholder="مثال: حل تدريبات ص 45 في الكتاب..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-sm font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                 </div>
-
                 <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200/80 space-y-2">
                     <div class="flex items-center justify-between">
                         <label class="text-xs font-black text-slate-700">3. ملاحظة وتنبيه للطلاب:</label>
@@ -646,13 +630,9 @@
                     <input type="text" id="lessonNoteInput" placeholder="مثال: إحضار ملف الإنجاز الحصة القادمة..." class="w-full bg-white border border-slate-300 rounded-xl p-2.5 text-sm font-bold focus:ring-2 focus:ring-amber-500 focus:outline-none">
                 </div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2">
                 <button onclick="closeLessonModal()" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-200 font-semibold text-sm transition">إلغاء</button>
-                <button onclick="saveDailyLesson()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-bold text-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    حفظ وعرض للطلاب
-                </button>
+                <button onclick="saveDailyLesson()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-bold text-sm transition flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ وعرض للطلاب</button>
             </div>
         </div>
     </div>
@@ -660,35 +640,19 @@
     <div id="studentPortalShareModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-md overflow-hidden transform transition-all">
             <div class="p-5 bg-sky-800 text-white flex justify-between items-center">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-user-graduate text-amber-300"></i>
-                    بوابة دخول الطلاب الموحدة
-                </h3>
-                <button onclick="closeStudentPortalShareModal()" class="text-sky-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-user-graduate text-amber-300"></i> بوابة دخول الطلاب الموحدة</h3>
+                <button onclick="closeStudentPortalShareModal()" class="text-sky-200 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-6 space-y-4">
-                <p class="text-xs text-slate-600 leading-relaxed font-semibold">
-                    شارك هذا الرابط الموحد مع جميع طلابك؛ حيث يقوم كل طالب بإدخال <span class="text-sky-700 font-black">بريده الإلكتروني فقط</span> لتفتح له صفحته الشخصية ويعرف حضوره وغيابه والمتأخرات والملاحظات مباشرة:
-                </p>
-
+                <p class="text-xs text-slate-600 leading-relaxed font-semibold">شارك هذا الرابط الموحد مع جميع طلابك؛ حيث يقوم كل طالب بإدخال <span class="text-sky-700 font-black">بريده الإلكتروني فقط</span> لتفتح له صفحته الشخصية ويعرف حضوره وغيابه والمتأخرات والملاحظات مباشرة:</p>
                 <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex items-center justify-between gap-2">
                     <input type="text" id="studentPortalShareUrlInput" readonly value="" dir="ltr" class="bg-transparent text-xs font-mono font-bold text-slate-700 w-full focus:outline-none">
-                    <button onclick="copyStudentPortalShareUrl()" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0">
-                        <i class="fa-regular fa-copy"></i> نسخ
-                    </button>
+                    <button onclick="copyStudentPortalShareUrl()" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0"><i class="fa-regular fa-copy"></i> نسخ</button>
                 </div>
-
                 <div class="grid grid-cols-1 gap-2 pt-2">
-                    <button onclick="sendStudentPortalToWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                        إرسال رابط بوابة الطلاب عبر واتساب
-                    </button>
+                    <button onclick="sendStudentPortalToWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow"><i class="fa-brands fa-whatsapp text-lg"></i> إرسال رابط بوابة الطلاب عبر واتساب</button>
                 </div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
                 <button onclick="closeStudentPortalShareModal()" class="px-5 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-sm transition">إغلاق</button>
             </div>
@@ -705,22 +669,14 @@
                         <p id="fullModalSubtitle" class="text-[11px] sm:text-xs text-indigo-200 mt-0.5 truncate">التاريخ والفصل</p>
                     </div>
                 </div>
-                <button id="fullModalTopCloseBtn" onclick="closeCategoryFullModal()" class="text-indigo-200 hover:text-white transition shrink-0 mr-2">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <button id="fullModalTopCloseBtn" onclick="closeCategoryFullModal()" class="text-indigo-200 hover:text-white transition shrink-0 mr-2"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div id="fullModalContent" class="p-4 sm:p-6 space-y-3 overflow-y-auto custom-scrollbar flex-grow"></div>
-
             <div class="p-3.5 sm:p-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center shrink-0 flex-wrap gap-2">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span id="fullModalCountBadge" class="text-xs font-bold text-slate-600 bg-slate-200 px-3 py-1.5 rounded-xl">الإجمالي: 0</span>
-                    <button id="modalExportBtn" onclick="exportCurrentModalCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1">
-                        <i class="fa-solid fa-file-excel"></i> تصدير القائمة
-                    </button>
-                    <button id="modalWhatsAppBtn" onclick="sendCurrentModalToWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition inline-flex items-center gap-1 shadow-sm">
-                        <i class="fa-brands fa-whatsapp"></i> مشاركة رابط هذه الفئة عبر واتساب
-                    </button>
+                    <button id="modalExportBtn" onclick="exportCurrentModalCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm inline-flex items-center gap-1"><i class="fa-solid fa-file-excel"></i> تصدير القائمة</button>
+                    <button id="modalWhatsAppBtn" onclick="sendCurrentModalToWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition inline-flex items-center gap-1 shadow-sm"><i class="fa-brands fa-whatsapp"></i> مشاركة رابط هذه الفئة عبر واتساب</button>
                 </div>
                 <button id="fullModalBottomCloseBtn" onclick="closeCategoryFullModal()" class="px-5 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-sm transition">إغلاق</button>
             </div>
@@ -730,17 +686,10 @@
     <div id="portalCategoryModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-lg overflow-hidden transform transition-all flex flex-col max-h-[85vh]">
             <div id="portalModalHeader" class="p-4 text-white flex justify-between items-center shrink-0">
-                <div class="flex items-center gap-2.5">
-                    <span id="portalModalIcon" class="text-xl"></span>
-                    <h3 id="portalModalTitle" class="text-base font-bold">سجل الفئة</h3>
-                </div>
-                <button onclick="closePortalCategoryModal()" class="text-white/80 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+                <div class="flex items-center gap-2.5"><span id="portalModalIcon" class="text-xl"></span><h3 id="portalModalTitle" class="text-base font-bold">سجل الفئة</h3></div>
+                <button onclick="closePortalCategoryModal()" class="text-white/80 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            
             <div id="portalModalContent" class="p-5 space-y-2.5 overflow-y-auto custom-scrollbar flex-grow"></div>
-
             <div class="p-3.5 bg-slate-50 border-t border-slate-100 flex justify-between items-center shrink-0">
                 <span id="portalModalCountBadge" class="text-xs font-bold text-slate-600 bg-slate-200 px-2.5 py-1 rounded-lg">الإجمالي: 0</span>
                 <button onclick="closePortalCategoryModal()" class="px-4 py-1.5 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs transition">إغلاق</button>
@@ -751,15 +700,9 @@
     <div id="customNoteModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-md overflow-hidden transform transition-all">
             <div class="p-5 bg-indigo-900 text-white flex justify-between items-center">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-pen-nib text-amber-300"></i>
-                    إضافة ملاحظة خطية للطالب
-                </h3>
-                <button onclick="closeCustomNoteModal()" class="text-indigo-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-pen-nib text-amber-300"></i> إضافة ملاحظة خطية للطالب</h3>
+                <button onclick="closeCustomNoteModal()" class="text-indigo-200 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-6 space-y-4">
                 <p id="customNoteStudentName" class="text-xs font-bold text-indigo-700 bg-indigo-50 p-2.5 rounded-xl border border-indigo-100"></p>
                 <div>
@@ -767,13 +710,9 @@
                     <textarea id="customNoteInput" rows="4" placeholder="اكتب الملاحظة هنا (مثال: تميز اليوم في التفاعل والمشاركة)..." class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none leading-relaxed"></textarea>
                 </div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2">
                 <button onclick="closeCustomNoteModal()" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-200 font-semibold text-sm transition">إلغاء</button>
-                <button onclick="saveCustomNote()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-semibold text-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    حفظ الملاحظة
-                </button>
+                <button onclick="saveCustomNote()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-semibold text-sm transition flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ الملاحظة</button>
             </div>
         </div>
     </div>
@@ -781,42 +720,25 @@
     <div id="addModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-xl overflow-hidden transform transition-all">
             <div class="p-5 bg-indigo-800 text-white flex justify-between items-center">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-users-rectangle"></i>
-                    إضافة أسماء الطلاب إلى الفصل والسحابة
-                </h3>
-                <button id="closeModalBtn" class="text-indigo-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-users-rectangle"></i> إضافة أسماء الطلاب إلى الفصل والسحابة</h3>
+                <button id="closeModalBtn" class="text-indigo-200 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-6 space-y-4">
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">اختر الفصل / المجموعة المستهدفة:</label>
                     <select id="modalGroupSelector" class="w-full border border-slate-300 rounded-xl p-2.5 text-sm font-bold bg-slate-50 text-indigo-900 mb-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none"></select>
-
-                    <label class="block text-sm font-bold text-slate-700 mb-2">
-                        ألصق أو اكتب أسماء الطلاب هنا (كل اسم في سطر والإيميل في سطر):
-                    </label>
-                    <textarea id="bulkNamesInput" rows="6" placeholder="أحمد محمد علي
-s123456@rb.moe.gov.sa
-خالد عبد الله
-s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none leading-relaxed"></textarea>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">ألصق أو اكتب أسماء الطلاب هنا (كل اسم في سطر والإيميل في سطر):</label>
+                    <textarea id="bulkNamesInput" rows="6" placeholder="أحمد محمد علي&#10;s123456@rb.moe.gov.sa&#10;خالد عبد الله&#10;s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none leading-relaxed"></textarea>
                     <p class="text-xs text-slate-500 mt-1">يمكنك لصق الأسماء والإيميلات بحيث يكون اسم الطالب في سطر والبريد الإلكتروني في السطر الذي يليه.</p>
                 </div>
-
                 <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 flex items-start gap-2">
                     <i class="fa-solid fa-cloud text-amber-600 text-base mt-0.5"></i>
                     <span>سيتم تخزين وإدراج هذه الأسماء والإيميلات في الفصل المحدد بالسحابة مباشرة.</span>
                 </div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2">
                 <button id="cancelModalBtn" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-200 font-semibold text-sm transition">إلغاء</button>
-                <button id="saveNamesBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-semibold text-sm transition flex items-center gap-2">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    حفظ وإدراج في السحابة
-                </button>
+                <button id="saveNamesBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-xl font-semibold text-sm transition flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up"></i> حفظ وإدراج في السحابة</button>
             </div>
         </div>
     </div>
@@ -824,27 +746,19 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
     <div id="groupsModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-md overflow-hidden transform transition-all">
             <div class="p-5 bg-indigo-900 text-white flex justify-between items-center">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-folder-plus"></i>
-                    إدارة الفصول والمجموعات
-                </h3>
-                <button onclick="closeManageGroupsModal()" class="text-indigo-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-folder-plus"></i> إدارة الفصول والمجموعات</h3>
+                <button onclick="closeManageGroupsModal()" class="text-indigo-200 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-6 space-y-4">
                 <div class="flex gap-2">
                     <input type="text" id="newGroupNameInput" placeholder="اسم الفصل الجديد (مثلاً: فصل 1/1)..." class="flex-grow border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                     <button onclick="createNewGroup()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-bold text-sm transition">إضافة</button>
                 </div>
-
                 <div>
                     <label class="block text-xs font-bold text-slate-500 mb-2">الفصول الحالية (يمكنك تعديل الاسم أو الحذف):</label>
                     <ul id="groupsListContainer" class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar"></ul>
                 </div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
                 <button onclick="closeManageGroupsModal()" class="px-5 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-sm transition">إغلاق</button>
             </div>
@@ -859,35 +773,19 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
     <div id="shareModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 w-full max-w-md overflow-hidden transform transition-all">
             <div class="p-5 bg-indigo-900 text-white flex justify-between items-center">
-                <h3 class="text-lg font-bold flex items-center gap-2">
-                    <i class="fa-solid fa-paper-plane text-amber-300"></i>
-                    مشاركة التقرير مع المدير
-                </h3>
-                <button onclick="closeShareModal()" class="text-indigo-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-paper-plane text-amber-300"></i> مشاركة التقرير مع المدير</h3>
+                <button onclick="closeShareModal()" class="text-indigo-200 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
             <div class="p-6 space-y-4">
-                <p class="text-xs text-slate-600 leading-relaxed font-semibold">
-                    يمكنك إرسال رابط لوحة المتابعة الشاملة مباشرة للمدير (بصلاحية العرض والقراءة فقط دون تعديل) أو نسخ الرابط:
-                </p>
-
+                <p class="text-xs text-slate-600 leading-relaxed font-semibold">يمكنك إرسال رابط لوحة المتابعة الشاملة مباشرة للمدير (بصلاحية العرض والقراءة فقط دون تعديل) أو نسخ الرابط:</p>
                 <div class="bg-slate-100 p-3 rounded-xl border border-slate-200 flex items-center justify-between gap-2">
                     <input type="text" id="shareUrlInput" readonly value="" class="bg-transparent text-xs font-mono font-bold text-slate-700 w-full focus:outline-none">
-                    <button onclick="copyShareUrl()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0">
-                        <i class="fa-regular fa-copy"></i> نسخ
-                    </button>
+                    <button onclick="copyShareUrl()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0"><i class="fa-regular fa-copy"></i> نسخ</button>
                 </div>
-
                 <div class="grid grid-cols-1 gap-2 pt-2">
-                    <button onclick="sendReportToWhatsAppManager()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow">
-                        <i class="fa-brands fa-whatsapp text-lg"></i>
-                        إرسال رابط العرض للمدير عبر واتساب
-                    </button>
+                    <button onclick="sendReportToWhatsAppManager()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow"><i class="fa-brands fa-whatsapp text-lg"></i> إرسال رابط العرض للمدير عبر واتساب</button>
                 </div>
             </div>
-
             <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
                 <button onclick="closeShareModal()" class="px-5 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-sm transition">إغلاق</button>
             </div>
@@ -907,7 +805,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        // ===== أدوات مساعدة (أمان وتاريخ ونسخ) =====
         async function sha256Hex(str) {
             const data = new TextEncoder().encode(String(str).trim().toLowerCase());
             const buf = await crypto.subtle.digest('SHA-256', data);
@@ -938,9 +835,39 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             showToast(okMsg, 'success');
         }
 
-        // خاص بالمعلم: إيميلات الطلاب المخزنة في مجموعة private
         let teacherEmails = {};
         let cloudStarted = false;
+
+        async function fetchTeacherPrivateEmailsForStudents(studentDocsList) {
+            if (!auth.currentUser || !Array.isArray(studentDocsList) || studentDocsList.length === 0) return;
+            const pairs = await Promise.all(studentDocsList.map(async (item) => {
+                try {
+                    const pDoc = await db.collection("attendance_students").doc(item.id).collection("private").doc("info").get();
+                    if (pDoc.exists && pDoc.data() && pDoc.data().email) {
+                        return { id: item.id, email: String(pDoc.data().email).trim().toLowerCase() };
+                    }
+                } catch (err) {
+                    console.warn("Private info read skipped for:", item.id, err);
+                }
+                return null;
+            }));
+
+            let updatedAny = false;
+            pairs.forEach(entry => {
+                if (entry && entry.email) {
+                    teacherEmails[entry.id] = entry.email;
+                    const stObj = students.find(s => s.id === entry.id);
+                    if (stObj && stObj.email !== entry.email) {
+                        stObj.email = entry.email;
+                        updatedAny = true;
+                    }
+                }
+            });
+
+            if (updatedAny && !isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) {
+                renderTable();
+            }
+        }
 
         function startCloudOnce() {
             if (cloudStarted) return;
@@ -952,13 +879,21 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const overlay = document.getElementById('teacherLoginOverlay');
             overlay.classList.remove('hidden');
             auth.onAuthStateChanged((user) => {
+                const badgeEl = document.getElementById('teacherAccountBadge');
+                const logoutBtn = document.getElementById('teacherLogoutBtn');
                 if (user) {
                     overlay.classList.add('hidden');
-                    document.getElementById('teacherLogoutBtn').classList.remove('hidden');
+                    logoutBtn.classList.remove('hidden');
+                    if (badgeEl && user.email) {
+                        badgeEl.textContent = user.email;
+                        badgeEl.classList.remove('hidden');
+                    }
                     startCloudOnce();
                 } else if (cloudStarted) {
                     window.location.reload();
                 } else {
+                    if (badgeEl) badgeEl.classList.add('hidden');
+                    logoutBtn.classList.add('hidden');
                     overlay.classList.remove('hidden');
                 }
             });
@@ -989,16 +924,18 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         }
 
         async function addStudentSecure(name, group, email) {
+            const normalizedEmail = String(email).trim().toLowerCase();
             const ref = db.collection("attendance_students").doc();
             const batch = db.batch();
             batch.set(ref, {
                 name: name,
                 group: group,
-                emailHash: await sha256Hex(email),
+                emailHash: await sha256Hex(normalizedEmail),
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
-            batch.set(ref.collection("private").doc("info"), { email: email });
+            batch.set(ref.collection("private").doc("info"), { email: normalizedEmail });
             await batch.commit();
+            teacherEmails[ref.id] = normalizedEmail;
         }
 
         async function migrateEmailsToPrivate() {
@@ -1012,12 +949,14 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 for (let i = 0; i < targets.length; i += 150) {
                     const batch = db.batch();
                     for (const s of targets.slice(i, i + 150)) {
+                        const cleanEmail = String(s.email).trim().toLowerCase();
                         const ref = db.collection("attendance_students").doc(s.id);
-                        batch.set(ref.collection("private").doc("info"), { email: s.email });
+                        batch.set(ref.collection("private").doc("info"), { email: cleanEmail });
                         batch.update(ref, {
-                            emailHash: await sha256Hex(s.email),
+                            emailHash: await sha256Hex(cleanEmail),
                             email: firebase.firestore.FieldValue.delete()
                         });
+                        teacherEmails[s.id] = cleanEmail;
                     }
                     await batch.commit();
                 }
@@ -1044,63 +983,28 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         ];
 
         const cardColorThemes = {
-            white: {
-                card: 'bg-white border-slate-200 hover:border-slate-300',
-                label: 'text-slate-600',
-                text: 'text-slate-900',
-                iconBox: 'bg-slate-100 text-slate-600'
-            },
-            indigo: {
-                card: 'bg-indigo-50/90 border-indigo-300 hover:border-indigo-400',
-                label: 'text-indigo-700',
-                text: 'text-indigo-950',
-                iconBox: 'bg-indigo-600 text-white'
-            },
-            emerald: {
-                card: 'bg-emerald-50/90 border-emerald-300 hover:border-emerald-400',
-                label: 'text-emerald-700',
-                text: 'text-emerald-950',
-                iconBox: 'bg-emerald-600 text-white'
-            },
-            amber: {
-                card: 'bg-amber-50/95 border-amber-300 hover:border-amber-400',
-                label: 'text-amber-800',
-                text: 'text-amber-950',
-                iconBox: 'bg-amber-500 text-white'
-            },
-            rose: {
-                card: 'bg-rose-50/90 border-rose-300 hover:border-rose-400',
-                label: 'text-rose-700',
-                text: 'text-rose-950',
-                iconBox: 'bg-rose-600 text-white'
-            },
-            purple: {
-                card: 'bg-purple-50/90 border-purple-300 hover:border-purple-400',
-                label: 'text-purple-700',
-                text: 'text-purple-950',
-                iconBox: 'bg-purple-600 text-white'
-            }
+            white: { card: 'bg-white border-slate-200 hover:border-slate-300', label: 'text-slate-600', text: 'text-slate-900', iconBox: 'bg-slate-100 text-slate-600' },
+            indigo: { card: 'bg-indigo-50/90 border-indigo-300 hover:border-indigo-400', label: 'text-indigo-700', text: 'text-indigo-950', iconBox: 'bg-indigo-600 text-white' },
+            emerald: { card: 'bg-emerald-50/90 border-emerald-300 hover:border-emerald-400', label: 'text-emerald-700', text: 'text-emerald-950', iconBox: 'bg-emerald-600 text-white' },
+            amber: { card: 'bg-amber-50/95 border-amber-300 hover:border-amber-400', label: 'text-amber-800', text: 'text-amber-950', iconBox: 'bg-amber-500 text-white' },
+            rose: { card: 'bg-rose-50/90 border-rose-300 hover:border-rose-400', label: 'text-rose-700', text: 'text-rose-950', iconBox: 'bg-rose-600 text-white' },
+            purple: { card: 'bg-purple-50/90 border-purple-300 hover:border-purple-400', label: 'text-purple-700', text: 'text-purple-950', iconBox: 'bg-purple-600 text-white' }
         };
 
-        let selectedCardColors = {
-            title: 'white',
-            homework: 'white',
-            note: 'white'
-        };
-
-        let isReadOnly = false; 
+        let selectedCardColors = { title: 'white', homework: 'white', note: 'white' };
+        let isReadOnly = false;
         let isStudentPortal = false;
         let isUnifiedStudentLogin = false;
         let targetStudentId = null;
-        let activeGroup = 'الجميع'; 
-        let groups = ['أول - أول', 'أول - ثاني', 'ثاني - أول']; 
-        let students = []; 
-        let allowedStudentsPreset = []; 
-        let attendanceData = {}; 
+        let activeGroup = 'الجميع';
+        let groups = ['أول - أول', 'أول - ثاني', 'ثاني - أول'];
+        let students = [];
+        let allowedStudentsPreset = [];
+        let attendanceData = {};
         let studentBehaviorsData = {};
         let dailyLessonsData = {};
         let currentDate = localDateStr();
-        let allAttendanceRecords = {}; 
+        let allAttendanceRecords = {};
         let allBehaviorsRecords = {};
         let currentCustomNoteStudentId = null;
         let currentModalCategory = null;
@@ -1122,34 +1026,21 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const val = selectElem.value;
             selectElem.value = "";
             if (!val) return;
-
-            if (val === 'students_emails') {
-                openAddModalWithClass();
-            } else if (val === 'student_portal') {
-                openStudentPortalShareModal();
-            } else if (val === 'share_manager') {
-                shareReportWithManager();
-            }
+            if (val === 'students_emails') openAddModalWithClass();
+            else if (val === 'student_portal') openStudentPortalShareModal();
+            else if (val === 'share_manager') shareReportWithManager();
         }
 
         function handleHeaderDropdownAction(selectElem) {
             const val = selectElem.value;
             selectElem.value = "";
             if (!val) return;
-
-            if (val === 'batch_action') {
-                openBatchActionModal();
-            } else if (val === 'copy_class') {
-                openAddModalWithClass();
-            } else if (val === 'delete_class') {
-                deleteCurrentClassData();
-            } else if (val === 'backup_json') {
-                exportFullAttendanceBackupJSON();
-            } else if (val === 'restore_json') {
-                document.getElementById('restoreBackupInput').click();
-            } else if (val === 'export_excel') {
-                exportToCSV();
-            }
+            if (val === 'batch_action') openBatchActionModal();
+            else if (val === 'copy_class') openAddModalWithClass();
+            else if (val === 'delete_class') deleteCurrentClassData();
+            else if (val === 'backup_json') exportFullAttendanceBackupJSON();
+            else if (val === 'restore_json') document.getElementById('restoreBackupInput').click();
+            else if (val === 'export_excel') exportToCSV();
         }
 
         function getStudentNumberMap() {
@@ -1159,10 +1050,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 const actGroup = activeGroup.trim();
                 return actGroup === 'الجميع' || sGroup === actGroup;
             }).sort((a, b) => a.name.localeCompare(b.name, 'ar'));
-
-            groupStudents.forEach((s, idx) => {
-                map[s.id] = idx + 1;
-            });
+            groupStudents.forEach((s, idx) => { map[s.id] = idx + 1; });
             return map;
         }
 
@@ -1172,13 +1060,10 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const ampm = hours >= 12 ? 'مساءً' : 'صباحاً';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            const hoursStr = String(hours).padStart(2, '0');
-
+            hours = hours % 12 || 12;
             const clockEl = document.getElementById('liveDigitalClock');
             const ampmEl = document.getElementById('liveAmPm');
-            if (clockEl) clockEl.textContent = `${hoursStr}:${minutes}:${seconds}`;
+            if (clockEl) clockEl.textContent = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
             if (ampmEl) ampmEl.textContent = ampm;
         }
 
@@ -1195,22 +1080,14 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const dayName = getArabicDayNameFromStr(currentDate);
             const selDayEl = document.getElementById('selectedDayLabel');
             if (selDayEl) selDayEl.textContent = `يوم ${dayName}`;
-
             const hijriEl = document.getElementById('selectedHijriLabel');
             if (hijriEl && currentDate) {
                 const parts = currentDate.split('-');
                 if (parts.length === 3) {
                     const dt = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
                     try {
-                        const hijriStr = dt.toLocaleDateString('ar-SA-u-ca-islamic', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        });
-                        hijriEl.textContent = `الموافق: ${hijriStr}`;
-                    } catch (e) {
-                        hijriEl.textContent = '';
-                    }
+                        hijriEl.textContent = `الموافق: ${dt.toLocaleDateString('ar-SA-u-ca-islamic', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                    } catch (e) { hijriEl.textContent = ''; }
                 }
             }
         }
@@ -1226,17 +1103,13 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const textEl = document.getElementById(textId);
             const iconEl = document.getElementById(iconBoxId);
             if (!cardEl || !labelEl || !textEl || !iconEl) return;
-
             const theme = cardColorThemes[colorKey] || cardColorThemes.white;
             cardEl.className = `${theme.card} transition cursor-pointer p-4 rounded-2xl shadow-sm border flex items-center justify-between gap-3 group`;
             labelEl.className = `text-xs font-black ${theme.label}`;
             iconEl.className = `w-10 h-10 ${theme.iconBox} rounded-xl flex items-center justify-center shrink-0 transition`;
-
-            if (hasText) {
-                textEl.className = `text-sm sm:text-base font-black ${theme.text} mt-1 block truncate`;
-            } else {
-                textEl.className = `text-sm sm:text-base font-bold text-slate-400 mt-1 block truncate`;
-            }
+            textEl.className = hasText
+                ? `text-sm sm:text-base font-black ${theme.text} mt-1 block truncate`
+                : `text-sm sm:text-base font-bold text-slate-400 mt-1 block truncate`;
         }
 
         function renderDailyLessonCards() {
@@ -1244,7 +1117,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const hwEl = document.getElementById('displayLessonHomework');
             const noteEl = document.getElementById('displayLessonNote');
             if (!titleEl || !hwEl || !noteEl) return;
-
             const key = getLessonDocKey();
             const fallbackKey = `${currentDate}__الجميع`;
             const lessonObj = dailyLessonsData[key] || dailyLessonsData[fallbackKey] || {};
@@ -1268,30 +1140,21 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const picker = document.getElementById(pickerId);
             if (!picker) return;
             picker.querySelectorAll('.color-dot').forEach(btn => {
-                if (btn.getAttribute('data-color') === colorKey) {
-                    btn.classList.add('active-dot');
-                } else {
-                    btn.classList.remove('active-dot');
-                }
+                btn.classList.toggle('active-dot', btn.getAttribute('data-color') === colorKey);
             });
         }
 
         function openLessonModal(focusField = 'title') {
             if (isReadOnly) return;
-            const key = getLessonDocKey();
-            const existing = dailyLessonsData[key] || {};
-
+            const existing = dailyLessonsData[getLessonDocKey()] || {};
             document.getElementById('lessonModalClassLabel').textContent = activeGroup;
             document.getElementById('lessonTitleInput').value = existing.title || '';
             document.getElementById('lessonHomeworkInput').value = existing.homework || '';
             document.getElementById('lessonNoteInput').value = existing.note || '';
-
             selectCardColor('title', existing.titleColor || 'white');
             selectCardColor('homework', existing.homeworkColor || 'white');
             selectCardColor('note', existing.noteColor || 'white');
-
             document.getElementById('lessonEditModal').classList.remove('hidden');
-
             setTimeout(() => {
                 if (focusField === 'homework') document.getElementById('lessonHomeworkInput').focus();
                 else if (focusField === 'note') document.getElementById('lessonNoteInput').focus();
@@ -1305,20 +1168,15 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
         async function saveDailyLesson() {
             if (isReadOnly) return;
-            const titleVal = document.getElementById('lessonTitleInput').value.trim();
-            const hwVal = document.getElementById('lessonHomeworkInput').value.trim();
-            const noteVal = document.getElementById('lessonNoteInput').value.trim();
-            const key = getLessonDocKey();
-
             try {
-                await db.collection("daily_lessons").doc(key).set({
+                await db.collection("daily_lessons").doc(getLessonDocKey()).set({
                     date: currentDate,
                     group: activeGroup,
-                    title: titleVal,
+                    title: document.getElementById('lessonTitleInput').value.trim(),
                     titleColor: selectedCardColors.title,
-                    homework: hwVal,
+                    homework: document.getElementById('lessonHomeworkInput').value.trim(),
                     homeworkColor: selectedCardColors.homework,
-                    note: noteVal,
+                    note: document.getElementById('lessonNoteInput').value.trim(),
                     noteColor: selectedCardColors.note,
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
@@ -1339,15 +1197,10 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const portalMode = urlParams.get('portal');
             const viewCategory = urlParams.get('category');
             const paramDate = urlParams.get('date');
-
-            if (paramDate) {
-                currentDate = paramDate;
-            }
-
             const paramGroup = urlParams.get('group');
-            if (paramGroup) {
-                activeGroup = decodeURIComponent(paramGroup).trim();
-            }
+
+            if (paramDate) currentDate = paramDate;
+            if (paramGroup) activeGroup = decodeURIComponent(paramGroup).trim();
 
             selectedDateInput.value = currentDate;
             updateSelectedDateLabels();
@@ -1395,7 +1248,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const errorBox = document.getElementById('studentLoginError');
             const errorText = document.getElementById('studentLoginErrorText');
             const enteredEmail = emailInput.value.trim().toLowerCase();
-
             if (!enteredEmail) return;
 
             if (students.length === 0) {
@@ -1405,7 +1257,10 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             }
 
             const enteredHash = await sha256Hex(enteredEmail);
-            const matchedStudent = students.find(s => (s.emailHash && s.emailHash === enteredHash) || (s.email && s.email.trim().toLowerCase() === enteredEmail));
+            const matchedStudent = students.find(s =>
+                (s.emailHash && s.emailHash === enteredHash) ||
+                (s.email && s.email.trim().toLowerCase() === enteredEmail)
+            );
             if (!matchedStudent) {
                 errorText.textContent = "عذراً، هذا البريد الإلكتروني غير مسجل في المنصة. تأكد من كتابته بشكل صحيح.";
                 errorBox.classList.remove('hidden');
@@ -1416,7 +1271,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             targetStudentId = matchedStudent.id;
             isStudentPortal = true;
             isReadOnly = true;
-
             document.getElementById('studentLoginContainer').classList.add('hidden');
             document.getElementById('studentPortalContainer').classList.remove('hidden');
             document.getElementById('studentSwitchAccountBar').classList.remove('hidden');
@@ -1441,8 +1295,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         }
 
         function openStudentPortalShareModal() {
-            const portalUrl = `${getBasePortalUrl()}?portal=student`;
-            document.getElementById('studentPortalShareUrlInput').value = portalUrl;
+            document.getElementById('studentPortalShareUrlInput').value = `${getBasePortalUrl()}?portal=student`;
             document.getElementById('studentPortalShareModal').classList.remove('hidden');
         }
 
@@ -1463,28 +1316,23 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         function applyReadOnlyMode() {
             document.getElementById('readOnlyBanner').classList.remove('hidden');
             document.getElementById('bannerText').textContent = 'وضع العرض (للقراءة والاطلاع فقط - لا يمكن التعديل) - إعداد: أ/ عبدالعزيز الفيفي';
-
             document.getElementById('manageGroupsBtn').classList.add('hidden');
             document.getElementById('quickAddControls').classList.add('hidden');
             const topDrop = document.getElementById('topAdminDropdownContainer');
             if (topDrop) topDrop.classList.add('hidden');
-
             document.getElementById('dailySection').classList.remove('hidden');
         }
 
         function updateShareUrl() {
-            const shareUrl = `${getBasePortalUrl()}?mode=view&group=${encodeURIComponent(activeGroup)}`;
-            document.getElementById('shareUrlInput').value = shareUrl;
+            document.getElementById('shareUrlInput').value = `${getBasePortalUrl()}?mode=view&group=${encodeURIComponent(activeGroup)}`;
         }
 
         function getStudentEmail(data, docId) {
             let rawEmail = (data.email || '').trim();
             if (rawEmail.includes('@')) {
-                let parts = rawEmail.split(/[\s,]+/);
-                let foundEmail = parts.find(p => p.includes('@') && p.includes('.'));
+                let foundEmail = rawEmail.split(/[\s,]+/).find(p => p.includes('@') && p.includes('.'));
                 if (foundEmail) return foundEmail.toLowerCase();
             }
-            // للزوار: لا نُظهر إيميلات مولّدة. للمعلم فقط (توافق مع البيانات القديمة)
             if (data.emailHash) return '';
             return auth.currentUser ? `s${docId.substring(0, 6)}@rb.moe.gov.sa` : '';
         }
@@ -1510,13 +1358,9 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
             db.collection("daily_lessons").onSnapshot((snapshot) => {
                 dailyLessonsData = {};
-                snapshot.forEach(doc => {
-                    dailyLessonsData[doc.id] = doc.data();
-                });
+                snapshot.forEach(doc => { dailyLessonsData[doc.id] = doc.data(); });
                 renderDailyLessonCards();
-            }, (error) => {
-                console.error("Daily lessons fetch error:", error);
-            });
+            }, (error) => console.error("Daily lessons fetch error:", error));
 
             db.collection("attendance_groups").doc("list").onSnapshot((doc) => {
                 if (doc.exists && doc.data().groups && doc.data().groups.length > 0) {
@@ -1532,46 +1376,32 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             });
 
             if (auth.currentUser) {
-                db.collectionGroup("private").onSnapshot((snapshot) => {
-                    teacherEmails = {};
+                db.collection("allowed_students").onSnapshot((snapshot) => {
+                    allowedStudentsPreset = [];
                     snapshot.forEach(doc => {
-                        const parent = doc.ref.parent.parent;
-                        if (parent && doc.data().email) teacherEmails[parent.id] = String(doc.data().email).toLowerCase();
+                        const data = doc.data();
+                        if (data && data.name) allowedStudentsPreset.push(data.name.trim());
                     });
-                    students.forEach(s => { if (teacherEmails[s.id]) s.email = teacherEmails[s.id]; });
-                    const mBtn = document.getElementById('migrateEmailsBtn');
-                    if (mBtn) mBtn.classList.toggle('hidden', !students.some(s => s.hasLegacy));
-                    if (!isStudentPortal && !isUnifiedStudentLogin) renderTable();
-                }, (error) => {
-                    console.error("Private emails fetch error:", error);
-                });
+                    populatePresetDropdown();
+                }, (error) => console.error("Allowed students fetch error:", error));
             }
 
-            if (auth.currentUser) db.collection("allowed_students").onSnapshot((snapshot) => {
-                allowedStudentsPreset = [];
-                snapshot.forEach(doc => {
-                    const data = doc.data();
-                    if (data && data.name) {
-                        allowedStudentsPreset.push(data.name.trim());
-                    }
-                });
-                populatePresetDropdown();
-            }, (error) => {
-                console.error("Allowed students fetch error:", error);
-            });
-
             db.collection("attendance_students").onSnapshot((snapshot) => {
+                const rawList = [];
                 students = [];
                 snapshot.forEach(doc => {
                     const data = doc.data();
-                    students.push({
+                    const emailVal = teacherEmails[doc.id] || getStudentEmail(data, doc.id);
+                    const studentObj = {
                         id: doc.id,
                         name: (data.name || "طالب بدون اسم").trim(),
-                        email: teacherEmails[doc.id] || getStudentEmail(data, doc.id),
+                        email: emailVal,
                         emailHash: data.emailHash || '',
                         hasLegacy: !!(data.email && String(data.email).trim()),
                         group: (data.group || groups[0] || 'أول - أول').trim()
-                    });
+                    };
+                    students.push(studentObj);
+                    rawList.push({ id: doc.id });
                 });
 
                 students.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
@@ -1580,7 +1410,11 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 if (mBtnS && auth.currentUser) mBtnS.classList.toggle('hidden', !students.some(s => s.hasLegacy));
                 if (cloudStatus) cloudStatus.textContent = "متصل ومزامن";
                 if (cloudIcon) cloudIcon.className = "fa-solid fa-cloud text-emerald-400";
-                
+
+                if (auth.currentUser) {
+                    fetchTeacherPrivateEmailsForStudents(rawList);
+                }
+
                 if (isStudentPortal && students.length > 0) {
                     const loader = document.getElementById('instantLoader');
                     if (loader) loader.style.setProperty('display', 'none', 'important');
@@ -1599,36 +1433,22 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
             db.collection("attendance_records").onSnapshot((snapshot) => {
                 allAttendanceRecords = {};
-                snapshot.forEach(doc => {
-                    allAttendanceRecords[doc.id] = doc.data().records || {};
-                });
+                snapshot.forEach(doc => { allAttendanceRecords[doc.id] = doc.data().records || {}; });
                 renderSingleDayReport();
-                if (isStudentPortal) {
-                    renderStudentPortalView();
-                }
-                if (!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) {
-                    renderTable();
-                }
+                if (isStudentPortal) renderStudentPortalView();
+                if (!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) renderTable();
                 const batchModal = document.getElementById('batchActionModal');
-                if (batchModal && !batchModal.classList.contains('hidden')) {
-                    refreshBatchStudentsList();
-                }
+                if (batchModal && !batchModal.classList.contains('hidden')) refreshBatchStudentsList();
                 checkAndRenderPendingCategory();
                 refreshOpenCategoryModalIfActive();
             });
 
             db.collection("student_behaviors_records").onSnapshot((snapshot) => {
                 allBehaviorsRecords = {};
-                snapshot.forEach(doc => {
-                    allBehaviorsRecords[doc.id] = doc.data().records || {};
-                });
+                snapshot.forEach(doc => { allBehaviorsRecords[doc.id] = doc.data().records || {}; });
                 renderSingleDayReport();
-                if (isStudentPortal) {
-                    renderStudentPortalView();
-                }
-                if (!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) {
-                    renderTable();
-                }
+                if (isStudentPortal) renderStudentPortalView();
+                if (!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) renderTable();
                 checkAndRenderPendingCategory();
                 refreshOpenCategoryModalIfActive();
             });
@@ -1670,33 +1490,26 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         async function restoreAttendanceBackupJSON(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             if (!confirm("هل أنت متأكد من استعادة هذه النسخة؟ سيتم دمج أو تحديث السجلات في السحابة بناءً على الملف.")) {
                 event.target.value = '';
                 return;
             }
-
             const reader = new FileReader();
             reader.onload = async function(e) {
                 try {
                     showToast('جاري استعادة البيانات إلى السحابة...', 'cloud');
                     const backupData = JSON.parse(e.target.result);
                     const batch = db.batch();
-
                     if (backupData.attendance_records) {
                         for (const [dateKey, recordVal] of Object.entries(backupData.attendance_records)) {
-                            const ref = db.collection("attendance_records").doc(dateKey);
-                            batch.set(ref, recordVal, { merge: true });
+                            batch.set(db.collection("attendance_records").doc(dateKey), recordVal, { merge: true });
                         }
                     }
-
                     if (backupData.student_behaviors_records) {
                         for (const [dateKey, recordVal] of Object.entries(backupData.student_behaviors_records)) {
-                            const ref = db.collection("student_behaviors_records").doc(dateKey);
-                            batch.set(ref, recordVal, { merge: true });
+                            batch.set(db.collection("student_behaviors_records").doc(dateKey), recordVal, { merge: true });
                         }
                     }
-
                     await batch.commit();
                     showToast('تمت استعادة البيانات الاحتياطية بنجاح ☁️', 'success');
                     event.target.value = '';
@@ -1715,10 +1528,8 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 document.getElementById('portalStudentName').textContent = "عذراً، الطالب غير موجود أو تم حذفه";
                 return;
             }
-
             const groupPeers = students.filter(s => s.group === student.group).sort((a, b) => a.name.localeCompare(b.name, 'ar'));
             const studentNum = groupPeers.findIndex(s => s.id === student.id) + 1;
-
             document.getElementById('portalStudentName').textContent = `${studentNum > 0 ? '#' + studentNum + ' - ' : ''}${student.name}`;
             document.getElementById('portalStudentDetails').textContent = `الفصل: ${student.group}${student.email ? ' | البريد: ' + student.email : ''}`;
 
@@ -1733,8 +1544,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const sortedBehaviorDates = Object.keys(allBehaviorsRecords).sort().reverse();
 
             sortedDates.forEach(date => {
-                const dayRecords = allAttendanceRecords[date] || {};
-                const recordObj = dayRecords[targetStudentId];
+                const recordObj = (allAttendanceRecords[date] || {})[targetStudentId];
                 if (recordObj) {
                     const st = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
                     if (st === 'present') present++;
@@ -1749,23 +1559,19 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 dayBehaviorsList.forEach((item, itemIdx) => {
                     hasBehaviors = true;
                     totalBehaviorScore += Number(item.score || 0);
-
                     const name = item.name || '';
                     const isParticipation = name.includes('مشاركة') || name.includes('إجابة');
                     const isCustomNote = item.isCustomNote;
 
-                    if (name.includes('حل الواجب') && !name.includes('لم يحل')) {
-                        homeworkDoneCount++;
-                    } else if (name.includes('لم يحل الواجب')) {
-                        homeworkNotCount++;
-                    } else if (isParticipation || (!name.includes('واجب') && !name.includes('ملف') && !name.includes('بحث') && !isCustomNote && item.score >= 0)) {
-                        participationsCount++;
-                    } else if (isCustomNote || item.score < 0) {
-                        behaviorsNotesCount++;
-                    }
+                    if (name.includes('حل الواجب') && !name.includes('لم يحل')) homeworkDoneCount++;
+                    else if (name.includes('لم يحل الواجب')) homeworkNotCount++;
+                    else if (isParticipation || (!name.includes('واجب') && !name.includes('ملف') && !name.includes('بحث') && !isCustomNote && item.score >= 0)) participationsCount++;
+                    else if (isCustomNote || item.score < 0) behaviorsNotesCount++;
 
-                    let scoreBadgeClass = item.score > 0 ? "text-emerald-600 bg-emerald-50 border-emerald-200" : (item.score < 0 ? "text-rose-600 bg-rose-50 border-rose-200" : "text-indigo-600 bg-indigo-50 border-indigo-200");
-                    let pulseClass = (!isParticipation && !isCustomNote) ? " pulse-badge shadow-sm" : "";
+                    const scoreBadgeClass = item.score > 0
+                        ? "text-emerald-600 bg-emerald-50 border-emerald-200"
+                        : (item.score < 0 ? "text-rose-600 bg-rose-50 border-rose-200" : "text-indigo-600 bg-indigo-50 border-indigo-200");
+                    const pulseClass = (!isParticipation && !isCustomNote) ? " pulse-badge shadow-sm" : "";
 
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'p-4 bg-slate-50 hover:bg-slate-100 transition rounded-xl border border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 shadow-sm';
@@ -1819,67 +1625,32 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const icon = document.getElementById('portalModalIcon');
             const content = document.getElementById('portalModalContent');
             const countBadge = document.getElementById('portalModalCountBadge');
-
             content.innerHTML = '';
             let listCount = 0;
             let headerBgClass = "bg-indigo-900";
             let typeTitle = "";
             let badgeStyle = "";
 
-            if (categoryType === 'present') {
-                typeTitle = "أيام الحضور المرصودة";
-                headerBgClass = "bg-emerald-700";
-                icon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-                badgeStyle = "bg-emerald-100 text-emerald-800 border-emerald-200";
-            } else if (categoryType === 'absent') {
-                typeTitle = "أيام الغياب المرصودة";
-                headerBgClass = "bg-rose-700";
-                icon.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
-                badgeStyle = "bg-rose-100 text-rose-800 border-rose-200";
-            } else if (categoryType === 'late') {
-                typeTitle = "أيام التأخر المرصودة";
-                headerBgClass = "bg-amber-600";
-                icon.innerHTML = `<i class="fa-solid fa-clock"></i>`;
-                badgeStyle = "bg-amber-100 text-amber-800 border-amber-200";
-            } else if (categoryType === 'excused') {
-                typeTitle = "أيام الأعذار والحالات الأخرى";
-                headerBgClass = "bg-blue-700";
-                icon.innerHTML = `<i class="fa-solid fa-file-signature"></i>`;
-                badgeStyle = "bg-blue-100 text-blue-800 border-blue-200";
-            } else if (categoryType === 'homework_done') {
-                typeTitle = "سجل حل الواجبات";
-                headerBgClass = "bg-teal-700";
-                icon.innerHTML = `<i class="fa-solid fa-book-bookmark"></i>`;
-                badgeStyle = "bg-teal-100 text-teal-800 border-teal-200";
-            } else if (categoryType === 'homework_not') {
-                typeTitle = "سجل عدم حل الواجبات";
-                headerBgClass = "bg-pink-700";
-                icon.innerHTML = `<i class="fa-solid fa-book-open-reader"></i>`;
-                badgeStyle = "bg-pink-100 text-pink-800 border-pink-200";
-            } else if (categoryType === 'participations') {
-                typeTitle = "سجل المشاركات والتفاعل";
-                headerBgClass = "bg-sky-700";
-                icon.innerHTML = `<i class="fa-solid fa-lightbulb"></i>`;
-                badgeStyle = "bg-sky-100 text-sky-800 border-sky-200";
-            } else if (categoryType === 'behaviors_notes') {
-                typeTitle = "سجل السلوكيات والملاحظات الخطية";
-                headerBgClass = "bg-purple-700";
-                icon.innerHTML = `<i class="fa-solid fa-pen-nib"></i>`;
-                badgeStyle = "bg-purple-100 text-purple-800 border-purple-200";
-            }
-
+            const mapConfig = {
+                present: ["أيام الحضور المرصودة", "bg-emerald-700", `<i class="fa-solid fa-circle-check"></i>`, "bg-emerald-100 text-emerald-800 border-emerald-200"],
+                absent: ["أيام الغياب المرصودة", "bg-rose-700", `<i class="fa-solid fa-circle-xmark"></i>`, "bg-rose-100 text-rose-800 border-rose-200"],
+                late: ["أيام التأخر المرصودة", "bg-amber-600", `<i class="fa-solid fa-clock"></i>`, "bg-amber-100 text-amber-800 border-amber-200"],
+                excused: ["أيام الأعذار والحالات الأخرى", "bg-blue-700", `<i class="fa-solid fa-file-signature"></i>`, "bg-blue-100 text-blue-800 border-blue-200"],
+                homework_done: ["سجل حل الواجبات", "bg-teal-700", `<i class="fa-solid fa-book-bookmark"></i>`, "bg-teal-100 text-teal-800 border-teal-200"],
+                homework_not: ["سجل عدم حل الواجبات", "bg-pink-700", `<i class="fa-solid fa-book-open-reader"></i>`, "bg-pink-100 text-pink-800 border-pink-200"],
+                participations: ["سجل المشاركات والتفاعل", "bg-sky-700", `<i class="fa-solid fa-lightbulb"></i>`, "bg-sky-100 text-sky-800 border-sky-200"],
+                behaviors_notes: ["سجل السلوكيات والملاحظات الخطية", "bg-purple-700", `<i class="fa-solid fa-pen-nib"></i>`, "bg-purple-100 text-purple-800 border-purple-200"]
+            };
+            [typeTitle, headerBgClass, icon.innerHTML, badgeStyle] = mapConfig[categoryType] || ["سجل الفئة", "bg-indigo-900", "", ""];
             header.className = `p-4 text-white flex justify-between items-center ${headerBgClass}`;
             title.textContent = typeTitle;
 
             if (['present', 'absent', 'late', 'excused'].includes(categoryType)) {
-                const sortedDates = Object.keys(allAttendanceRecords).sort().reverse();
-                sortedDates.forEach(date => {
-                    const dayRecords = allAttendanceRecords[date] || {};
-                    const recordObj = dayRecords[targetStudentId];
+                Object.keys(allAttendanceRecords).sort().reverse().forEach(date => {
+                    const recordObj = (allAttendanceRecords[date] || {})[targetStudentId];
                     if (recordObj) {
                         const st = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
                         const timeStr = typeof recordObj === 'object' && recordObj !== null ? recordObj.time : '-';
-
                         if (st === categoryType) {
                             listCount++;
                             const card = document.createElement('div');
@@ -1899,14 +1670,12 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                     }
                 });
             } else {
-                const sortedBehaviorDates = Object.keys(allBehaviorsRecords).sort().reverse();
-                sortedBehaviorDates.forEach(date => {
+                Object.keys(allBehaviorsRecords).sort().reverse().forEach(date => {
                     const dayLogs = (allBehaviorsRecords[date] || {})[targetStudentId] || [];
                     dayLogs.forEach((item, itemIdx) => {
                         const name = item.name || '';
                         const isParticipation = name.includes('مشاركة') || name.includes('إجابة');
                         const isCustomNote = item.isCustomNote;
-
                         let matches = false;
                         if (categoryType === 'homework_done' && name.includes('حل الواجب') && !name.includes('لم يحل')) matches = true;
                         else if (categoryType === 'homework_not' && name.includes('لم يحل الواجب')) matches = true;
@@ -1939,10 +1708,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 });
             }
 
-            if (listCount === 0) {
-                content.innerHTML = `<div class="p-8 text-center text-slate-400 font-bold text-sm">لا توجد سجلات مسجلة تحت هذه الفئة حتى الآن</div>`;
-            }
-
+            if (listCount === 0) content.innerHTML = `<div class="p-8 text-center text-slate-400 font-bold text-sm">لا توجد سجلات مسجلة تحت هذه الفئة حتى الآن</div>`;
             countBadge.textContent = `الإجمالي: ${listCount}`;
             modal.classList.remove('hidden');
         }
@@ -1969,7 +1735,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 if (activeGroup !== 'الجميع' && grp.trim() === activeGroup.trim()) opt.selected = true;
                 modalGroupSelector.appendChild(opt);
             });
-
             renderGroupsManageList();
         }
 
@@ -1993,20 +1758,10 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         function openAddModalWithClass() {
             if (isReadOnly) return;
             updateGroupDropdowns();
-            if (activeGroup === 'الجميع') {
-                modalGroupSelector.value = groups[0] || '';
-            } else {
-                modalGroupSelector.value = activeGroup;
-            }
-            const activeInGroup = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                return actGroup === 'الجميع' || sGroup === actGroup;
-            });
+            modalGroupSelector.value = activeGroup === 'الجميع' ? (groups[0] || '') : activeGroup;
+            const activeInGroup = students.filter(s => activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
             let textValue = "";
-            activeInGroup.forEach(s => {
-                textValue += `${s.name}\n${s.email}\n`;
-            });
+            activeInGroup.forEach(s => { textValue += `${s.name}\n${s.email}\n`; });
             bulkNamesInput.value = textValue;
             addModal.classList.remove('hidden');
         }
@@ -2021,13 +1776,12 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 showToast('لا توجد طلاب في هذا الفصل للحذف', 'warning');
                 return;
             }
-
             if (!confirm(`هل أنت متأكد من حذف جميع طلاب فصل (${activeGroup}) من السحابة؟`)) return;
-
             try {
                 const batch = db.batch();
                 activeStudents.forEach(st => {
                     const ref = db.collection("attendance_students").doc(st.id);
+                    batch.delete(ref.collection("private").doc("info"));
                     batch.delete(ref);
                 });
                 await batch.commit();
@@ -2042,15 +1796,12 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const input = document.getElementById('newGroupNameInput');
             const newName = input.value.trim();
             if (!newName) return;
-
             if (groups.includes(newName)) {
                 showToast('هذا الفصل موجود بالفعل', 'warning');
                 return;
             }
-
             groups.push(newName);
             input.value = '';
-
             try {
                 await db.collection("attendance_groups").doc("list").set({ groups: groups });
                 showToast('تمت إضافة الفصل بنجاح ☁️', 'cloud');
@@ -2066,12 +1817,9 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 showToast('يجب الاحتفاظ بفصل واحد على الأقل', 'warning');
                 return;
             }
-
             if (!confirm(`هل أنت متأكد من حذف ${groupName}؟`)) return;
-
             groups = groups.filter(g => g !== groupName);
             if (activeGroup === groupName) activeGroup = 'الجميع';
-
             try {
                 await db.collection("attendance_groups").doc("list").set({ groups: groups });
                 showToast('تم حذف الفصل بنجاح', 'info');
@@ -2086,28 +1834,23 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         async function renameGroup(oldName) {
             const newName = prompt(`أدخل الاسم الجديد للفصل (${oldName}):`, oldName);
             if (!newName || newName.trim() === '' || newName.trim() === oldName) return;
-
             const trimmedNewName = newName.trim();
             if (groups.includes(trimmedNewName)) {
                 showToast('يوجد فصل بنفس هذا الاسم بالفعل', 'warning');
                 return;
             }
-
             groups = groups.map(g => g === oldName ? trimmedNewName : g);
             if (activeGroup === oldName) activeGroup = trimmedNewName;
-
             try {
                 await db.collection("attendance_groups").doc("list").set({ groups: groups });
                 const studentsToUpdate = students.filter(s => s.group === oldName);
                 if (studentsToUpdate.length > 0) {
                     const batch = db.batch();
                     studentsToUpdate.forEach(student => {
-                        const ref = db.collection("attendance_students").doc(student.id);
-                        batch.update(ref, { group: trimmedNewName });
+                        batch.update(db.collection("attendance_students").doc(student.id), { group: trimmedNewName });
                     });
                     await batch.commit();
                 }
-
                 showToast(`تم تغيير اسم الفصل إلى (${trimmedNewName}) بنجاح ☁️`, 'cloud');
                 updateGroupDropdowns();
                 renderDailyLessonCards();
@@ -2121,20 +1864,13 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const container = document.getElementById('groupsListContainer');
             if (!container) return;
             container.innerHTML = '';
-
             groups.forEach(grp => {
                 const count = students.filter(s => s.group === grp).length;
                 const li = document.createElement('li');
                 li.className = 'flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-xs font-bold';
-                
                 const groupTitle = document.createElement('div');
                 groupTitle.className = 'flex items-center gap-2';
-                groupTitle.innerHTML = `
-                    <i class="fa-solid fa-door-closed text-indigo-600"></i>
-                    <span class="text-slate-800">${escapeHtml(grp)}</span>
-                    <span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">${count} طالب</span>
-                `;
-
+                groupTitle.innerHTML = `<i class="fa-solid fa-door-closed text-indigo-600"></i><span class="text-slate-800">${escapeHtml(grp)}</span><span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full">${count} طالب</span>`;
                 const btnContainer = document.createElement('div');
                 btnContainer.className = 'flex items-center gap-1';
 
@@ -2152,7 +1888,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
                 btnContainer.appendChild(editBtn);
                 btnContainer.appendChild(deleteBtn);
-
                 li.appendChild(groupTitle);
                 li.appendChild(btnContainer);
                 container.appendChild(li);
@@ -2165,13 +1900,11 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             document.getElementById('allowAbsentBatchCheckbox').checked = false;
             document.getElementById('batchCustomNoteWrapper').classList.add('hidden');
             document.getElementById('batchCustomNoteInput').value = '';
-            
             const selectEl = document.getElementById('batchActionSelect');
             selectEl.innerHTML = '<option value="">-- اختر الحدث --</option>';
             defaultActions.forEach((act, idx) => {
                 selectEl.innerHTML += `<option value="${idx}">${act.icon} ${act.name} ${act.score !== 0 ? '(' + (act.score > 0 ? '+' + act.score : act.score) + ')' : ''}</option>`;
             });
-
             refreshBatchStudentsList();
             document.getElementById('batchActionModal').classList.remove('hidden');
         }
@@ -2179,10 +1912,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         function onBatchActionSelectChanged(val) {
             const noteWrapper = document.getElementById('batchCustomNoteWrapper');
             const noteInput = document.getElementById('batchCustomNoteInput');
-            if (val === "") {
-                noteWrapper.classList.add('hidden');
-                return;
-            }
+            if (val === "") { noteWrapper.classList.add('hidden'); return; }
             const action = defaultActions[parseInt(val)];
             if (action && action.isCustomNote) {
                 noteWrapper.classList.remove('hidden');
@@ -2192,53 +1922,42 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             }
         }
 
-        function onBatchDateChanged(newDateStr) {
-            refreshBatchStudentsList();
-        }
+        function onBatchDateChanged() { refreshBatchStudentsList(); }
 
         function refreshBatchStudentsList() {
             const targetDate = document.getElementById('batchActionDate').value || currentDate;
             const allowAbsent = document.getElementById('allowAbsentBatchCheckbox').checked;
             const headerLabel = document.getElementById('batchListHeaderLabel');
             const numMap = getStudentNumberMap();
-
             const dayRecords = allAttendanceRecords[targetDate] || {};
 
             const activeStudents = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                const matchesGroup = (actGroup === 'الجميع' || sGroup === actGroup);
+                const matchesGroup = (activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
                 if (!matchesGroup) return false;
-
                 if (allowAbsent) return true;
-
                 const recordObj = dayRecords[s.id];
                 const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
-                
                 return (status === 'present' || status === 'late');
             });
 
-            if (allowAbsent) {
-                headerLabel.textContent = "جميع طلاب الفصل (مع إمكانية رصد الغائبين):";
-            } else {
-                headerLabel.textContent = `الطلاب الحاضرون أو المتأخرون فقط في تاريخ (${targetDate}):`;
-            }
+            headerLabel.textContent = allowAbsent
+                ? "جميع طلاب الفصل (مع إمكانية رصد الغائبين):"
+                : `الطلاب الحاضرون أو المتأخرون فقط في تاريخ (${targetDate}):`;
 
             const container = document.getElementById('batchStudentsListContainer');
             container.innerHTML = '';
 
             if (activeStudents.length === 0) {
-                container.innerHTML = `<div class="p-4 text-center text-slate-400 font-bold text-xs">لا توجد طلاب مسجلون بحالة "حاضر" أو "متأخر" في هذا التاريخ. (قم بتغيير التاريخ أو تفعيل خيار عرض الغائبين أعلاه).</div>`;
+                container.innerHTML = `<div class="p-4 text-center text-slate-400 font-bold text-xs">لا توجد طلاب مسجلون بحالة "حاضر" أو "متأخر" في هذا التاريخ.</div>`;
             } else {
                 activeStudents.forEach(st => {
                     const stNum = numMap[st.id] || '';
                     const recordObj = dayRecords[st.id];
                     const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
-                    let statusTag = "";
+                    let statusTag = '<span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">لم يُرصد حضوره</span>';
                     if (status === 'present') statusTag = '<span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">حاضر</span>';
                     else if (status === 'late') statusTag = '<span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">متأخر</span>';
                     else if (status === 'absent') statusTag = '<span class="text-[10px] bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded font-bold">غائب ⚠️</span>';
-                    else statusTag = '<span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">لم يُرصد حضوره</span>';
 
                     const label = document.createElement('label');
                     label.className = "flex items-center justify-between p-2 bg-white rounded-lg border border-slate-200 text-xs font-bold hover:bg-indigo-50/50 cursor-pointer transition";
@@ -2261,36 +1980,22 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         }
 
         function toggleSelectAllBatch(checked) {
-            const checkboxes = document.querySelectorAll('input[name="batchStudentCheckbox"]');
-            checkboxes.forEach(cb => cb.checked = checked);
+            document.querySelectorAll('input[name="batchStudentCheckbox"]').forEach(cb => { cb.checked = checked; });
         }
 
         async function executeBatchAction() {
             if (isReadOnly) return;
             const targetDate = document.getElementById('batchActionDate').value;
             const selectVal = document.getElementById('batchActionSelect').value;
-
-            if (!targetDate) {
-                showToast('يرجى تحديد التاريخ أولاً', 'warning');
-                return;
-            }
-            if (selectVal === "") {
-                showToast('يرجى اختيار الحدث المراد رصده', 'warning');
-                return;
-            }
-
+            if (!targetDate) { showToast('يرجى تحديد التاريخ أولاً', 'warning'); return; }
+            if (selectVal === "") { showToast('يرجى اختيار الحدث المراد رصده', 'warning'); return; }
             const checkboxes = document.querySelectorAll('input[name="batchStudentCheckbox"]:checked');
-            if (checkboxes.length === 0) {
-                showToast('يرجى تحديد طالب واحد على الأقل', 'warning');
-                return;
-            }
-
+            if (checkboxes.length === 0) { showToast('يرجى تحديد طالب واحد على الأقل', 'warning'); return; }
             const action = defaultActions[parseInt(selectVal)];
             if (!action) return;
 
             let finalName = action.name;
             let isCustom = false;
-
             if (action.isCustomNote) {
                 const customText = document.getElementById('batchCustomNoteInput').value.trim();
                 if (!customText) {
@@ -2307,30 +2012,17 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 const docRef = db.collection("student_behaviors_records").doc(targetDate);
                 const doc = await docRef.get();
                 let dayBehaviors = doc.exists ? (doc.data().records || {}) : {};
-
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+                const timeString = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
 
                 checkboxes.forEach(cb => {
                     const studentId = cb.value;
-                    if (!dayBehaviors[studentId]) {
-                        dayBehaviors[studentId] = [];
-                    }
-                    const entry = {
-                        icon: action.icon,
-                        name: finalName,
-                        score: action.score,
-                        time: timeString
-                    };
+                    if (!dayBehaviors[studentId]) dayBehaviors[studentId] = [];
+                    const entry = { icon: action.icon, name: finalName, score: action.score, time: timeString };
                     if (isCustom) entry.isCustomNote = true;
                     dayBehaviors[studentId].push(entry);
                 });
 
-                await docRef.set({
-                    records: dayBehaviors,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
+                await docRef.set({ records: dayBehaviors, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
                 showToast(`تم رصد (${finalName}) بنجاح لـ ${checkboxes.length} طالب سحابياً ☁️`, 'success');
                 closeBatchActionModal();
             } catch (err) {
@@ -2351,21 +2043,13 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         function renderSingleDayReport() {
             if (isStudentPortal || isUnifiedStudentLogin) return;
             updateSelectedDateLabels();
-            const targetDate = currentDate;
-            const dayRecords = allAttendanceRecords[targetDate] || {};
-
+            const dayRecords = allAttendanceRecords[currentDate] || {};
             let pCount = 0, aCount = 0, lCount = 0, oCount = 0;
 
-            const filteredForReport = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                return actGroup === 'الجميع' || sGroup === actGroup;
-            });
-
+            const filteredForReport = students.filter(s => activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
             filteredForReport.forEach(s => {
                 const recordObj = dayRecords[s.id];
                 if (!recordObj) return;
-
                 const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
                 if (status === 'present') pCount++;
                 else if (status === 'absent') aCount++;
@@ -2391,32 +2075,21 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             document.getElementById('dayHighAbsentCount').textContent = `${highAbsentTotal} طالب`;
 
             let partCount = 0, hwDoneCount = 0, hwNotCount = 0, resCount = 0, forgotCount = 0, behCount = 0;
-
             filteredForReport.forEach(s => {
                 Object.keys(allBehaviorsRecords).forEach(d => {
-                    const logs = (allBehaviorsRecords[d] || {})[s.id] || [];
-                    logs.forEach((item) => {
+                    ((allBehaviorsRecords[d] || {})[s.id] || []).forEach((item) => {
                         const name = item.name || '';
                         const isParticipation = name.includes('مشاركة') || name.includes('إجابة');
                         const isCustomNote = item.isCustomNote;
+                        if (isParticipation && d !== currentDate) return;
 
-                        if (isParticipation && d !== targetDate) return;
-
-                        if (name.includes('حل الواجب') && !name.includes('لم يحل')) {
-                            hwDoneCount++;
-                        } else if (name.includes('لم يحل الواجب')) {
-                            hwNotCount++;
-                        } else if (name.includes('إنجاز ملف') || name.includes('بحث')) {
-                            resCount++;
-                        } else if (name.includes('نسيان ملف')) {
-                            forgotCount++;
-                        } else if (isParticipation) {
-                            partCount++;
-                        } else if (item.score < 0 || isCustomNote) {
-                            behCount++;
-                        } else {
-                            partCount++;
-                        }
+                        if (name.includes('حل الواجب') && !name.includes('لم يحل')) hwDoneCount++;
+                        else if (name.includes('لم يحل الواجب')) hwNotCount++;
+                        else if (name.includes('إنجاز ملف') || name.includes('بحث')) resCount++;
+                        else if (name.includes('نسيان ملف')) forgotCount++;
+                        else if (isParticipation) partCount++;
+                        else if (item.score < 0 || isCustomNote) behCount++;
+                        else partCount++;
                     });
                 });
             });
@@ -2426,34 +2099,27 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             document.getElementById('dayHomeworkNotCount').textContent = hwNotCount;
             document.getElementById('dayResearchCount').textContent = resCount;
             const dayForgotCountEl = document.getElementById('dayForgotFileCount');
-            if(dayForgotCountEl) dayForgotCountEl.textContent = forgotCount;
+            if (dayForgotCountEl) dayForgotCountEl.textContent = forgotCount;
             document.getElementById('dayBehaviorsCount').textContent = behCount;
         }
 
         function exportCurrentModalCSV() {
             const targetDate = currentDate;
-            const filteredStudents = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                return actGroup === 'الجميع' || sGroup === actGroup;
-            });
-
+            const filteredStudents = students.filter(s => activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
             let csvContent = "\uFEFF";
             let rowSeq = 0;
-            if (currentModalCategory === 'present' || currentModalCategory === 'absent' || currentModalCategory === 'late' || currentModalCategory === 'excused' || currentModalCategory === 'other' || currentModalCategory === 'high_absent') {
+
+            if (['present', 'absent', 'late', 'excused', 'other', 'high_absent'].includes(currentModalCategory)) {
                 csvContent += `الرقم التسلسلي,اسم الطالب,البريد الإلكتروني,الفصل,الحالة/التفاصيل\n`;
                 filteredStudents.forEach(student => {
-                    const dayRecords = allAttendanceRecords[targetDate] || {};
-                    const recordObj = dayRecords[student.id];
+                    const recordObj = (allAttendanceRecords[targetDate] || {})[student.id];
                     const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
-                    
                     let absentCount = 0;
                     Object.keys(allAttendanceRecords).forEach(d => {
                         const rec = (allAttendanceRecords[d] || {})[student.id];
                         const st = typeof rec === 'object' && rec !== null ? rec.status : rec;
                         if (st === 'absent') absentCount++;
                     });
-
                     let match = false;
                     if (currentModalCategory === 'present' && status === 'present') match = true;
                     if (currentModalCategory === 'absent' && status === 'absent') match = true;
@@ -2461,7 +2127,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                     if (currentModalCategory === 'excused' && status === 'excused') match = true;
                     if (currentModalCategory === 'other' && (status === 'late' || status === 'excused')) match = true;
                     if (currentModalCategory === 'high_absent' && absentCount >= 3) match = true;
-
                     if (match) {
                         rowSeq++;
                         csvContent += `"${rowSeq}","${student.name.replace(/"/g, '""')}","${student.email}","${student.group}","${currentModalCategory === 'high_absent' ? absentCount + ' أيام غياب' : status}"\n`;
@@ -2471,13 +2136,11 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 csvContent += `الرقم التسلسلي,اسم الطالب,البريد الإلكتروني,الفصل,السجل/المشاركة,الوقت\n`;
                 filteredStudents.forEach(student => {
                     Object.keys(allBehaviorsRecords).forEach(d => {
-                        const logs = (allBehaviorsRecords[d] || {})[student.id] || [];
-                        logs.forEach(item => {
+                        ((allBehaviorsRecords[d] || {})[student.id] || []).forEach(item => {
                             const name = item.name || '';
                             const isParticipation = name.includes('مشاركة') || name.includes('إجابة');
                             const isCustomNote = item.isCustomNote;
                             if (isParticipation && d !== targetDate) return;
-
                             let match = false;
                             if (currentModalCategory === 'participations' && (isParticipation || (!name.includes('واجب') && !name.includes('ملف') && !name.includes('بحث') && !isCustomNote && item.score >= 0))) match = true;
                             if (currentModalCategory === 'homework_done' && name.includes('حل الواجب') && !name.includes('لم يحل')) match = true;
@@ -2485,7 +2148,6 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                             if (currentModalCategory === 'research' && (name.includes('إنجاز ملف') || name.includes('بحث'))) match = true;
                             if (currentModalCategory === 'forgot_file' && name.includes('نسيان ملف')) match = true;
                             if (currentModalCategory === 'behaviors' && (isCustomNote || (!isParticipation && item.score < 0))) match = true;
-
                             if (match) {
                                 rowSeq++;
                                 csvContent += `"${rowSeq}","${student.name.replace(/"/g, '""')}","${student.email}","${student.group}","${name.replace(/"/g, '""')}","${item.time}"\n`;
@@ -2508,22 +2170,20 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const targetDate = currentDate;
             const dayName = getArabicDayNameFromStr(targetDate);
             const shareUrl = `${getBasePortalUrl()}?mode=view&group=${encodeURIComponent(activeGroup)}&category=${encodeURIComponent(currentModalCategory)}&date=${encodeURIComponent(targetDate)}`;
-            
             const categoryNames = {
-                'present': 'قائمة الطلاب الحاضرين',
-                'absent': 'قائمة الطلاب الغائبين',
-                'late': 'قائمة الطلاب المتأخرين',
-                'excused': 'قائمة الأعذار والحالات الأخرى',
-                'other': 'قائمة المتأخرين وبعذر',
-                'high_absent': 'قائمة الغياب المتكرر (3 أيام فأكثر)',
-                'participations': 'تقرير المشاركات والتفاعل',
-                'homework_done': 'تقرير حل الواجبات',
-                'homework_not': 'تقرير عدم حل الواجبات',
-                'research': 'تقرير إنجاز الملف والبحوث',
-                'forgot_file': 'تقرير نسيان الملف',
-                'behaviors': 'تقرير الملاحظات والسلوكيات'
+                present: 'قائمة الطلاب الحاضرين',
+                absent: 'قائمة الطلاب الغائبين',
+                late: 'قائمة الطلاب المتأخرين',
+                excused: 'قائمة الأعذار والحالات الأخرى',
+                other: 'قائمة المتأخرين وبعذر',
+                high_absent: 'قائمة الغياب المتكرر (3 أيام فأكثر)',
+                participations: 'تقرير المشاركات والتفاعل',
+                homework_done: 'تقرير حل الواجبات',
+                homework_not: 'تقرير عدم حل الواجبات',
+                research: 'تقرير إنجاز الملف والبحوث',
+                forgot_file: 'تقرير نسيان الملف',
+                behaviors: 'تقرير الملاحظات والسلوكيات'
             };
-
             const catTitle = categoryNames[currentModalCategory] || 'تقرير الفئة المحددة';
             const rawMessage = `سعادة مدير المدرسة المحترم،\n\nالاطلاع على (${catTitle}) للفصل: (${activeGroup}) ليوم (${dayName}) بتاريخ (${targetDate}) عبر الرابط:\n${shareUrl}\n\nإعداد المعلم: أ/ عبدالعزيز الفيفي (ثانوية الأمير عبدالمجيد)`;
             window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(rawMessage)}`, '_blank');
@@ -2535,23 +2195,15 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 const docRef = db.collection("attendance_records").doc(dateStr);
                 const doc = await docRef.get();
                 let updatedRecords = doc.exists ? (doc.data().records || {}) : {};
-
                 if (status === 'unmarked' || status === '') {
                     delete updatedRecords[studentId];
                 } else {
-                    const now = new Date();
-                    const timeString = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
                     updatedRecords[studentId] = {
                         status: status,
-                        time: timeString
+                        time: new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })
                     };
                 }
-
-                await docRef.set({
-                    records: updatedRecords,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
+                await docRef.set({ records: updatedRecords, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
                 showToast('تم تعديل حالة الطالب سحابياً ☁️', 'cloud');
             } catch (error) {
                 console.error("Error updating status in modal:", error);
@@ -2576,8 +2228,8 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const targetDate = currentDate;
             const dayName = getArabicDayNameFromStr(targetDate);
             const dayRecords = allAttendanceRecords[targetDate] || {};
-
             currentModalCategory = categoryType;
+
             const modal = document.getElementById('fullCategoryModal');
             const modalBox = document.getElementById('fullCategoryModalBox');
             const header = document.getElementById('fullModalHeader');
@@ -2603,83 +2255,38 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             let typeTitle = "";
             let statusName = "";
 
-            if (categoryType === 'present') {
-                typeTitle = "تقرير الطلاب الحاضرين كاملاً";
-                headerBgClass = "bg-emerald-700";
-                icon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-                statusName = "present";
-            } else if (categoryType === 'absent') {
-                typeTitle = "تقرير الطلاب الغائبين كاملاً";
-                headerBgClass = "bg-rose-700";
-                icon.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
-                statusName = "absent";
-            } else if (categoryType === 'late') {
-                typeTitle = "تقرير الطلاب المتأخرين كاملاً";
-                headerBgClass = "bg-amber-600";
-                icon.innerHTML = `<i class="fa-solid fa-clock"></i>`;
-                statusName = "late";
-            } else if (categoryType === 'excused') {
-                typeTitle = "تقرير الطلاب (بعذر / أخرى) كاملاً";
-                headerBgClass = "bg-slate-700";
-                icon.innerHTML = `<i class="fa-solid fa-file-signature"></i>`;
-                statusName = "excused";
-            } else if (categoryType === 'other') {
-                typeTitle = "قائمة الطلاب (المتأخرين أو بعذر)";
-                headerBgClass = "bg-amber-600";
-                icon.innerHTML = `<i class="fa-solid fa-clock"></i>`;
-            } else if (categoryType === 'high_absent') {
-                typeTitle = "قائمة الطلاب المتجاوزين لـ 3 أيام غياب فأكثر";
-                headerBgClass = "bg-red-700";
-                icon.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
-            } else if (categoryType === 'participations') {
-                typeTitle = "تقرير المشاركات كاملاً";
-                headerBgClass = "bg-sky-700";
-                icon.innerHTML = `<i class="fa-solid fa-lightbulb"></i>`;
-            } else if (categoryType === 'homework_done') {
-                typeTitle = "تقرير الطلاب الذين سَلَّمُوا الواجب كاملاً";
-                headerBgClass = "bg-emerald-700";
-                icon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-            } else if (categoryType === 'homework_not') {
-                typeTitle = "تقرير الطلاب الذين لَمْ يُسَلِّمُوا الواجب كاملاً";
-                headerBgClass = "bg-pink-700";
-                icon.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
-            } else if (categoryType === 'research') {
-                typeTitle = "تقرير إنجاز الملف والبحوث كاملاً";
-                headerBgClass = "bg-amber-700";
-                icon.innerHTML = `<i class="fa-solid fa-folder-open"></i>`;
-            } else if (categoryType === 'forgot_file') {
-                typeTitle = "تقرير نسيان الملف كاملاً";
-                headerBgClass = "bg-rose-700";
-                icon.innerHTML = `<i class="fa-solid fa-folder-closed"></i>`;
-            } else if (categoryType === 'behaviors') {
-                typeTitle = "تقرير الملاحظات الخطية والسلوكيات كاملاً";
-                headerBgClass = "bg-purple-700";
-                icon.innerHTML = `<i class="fa-solid fa-pen-nib"></i>`;
-            }
-
+            const headerConfig = {
+                present: ["تقرير الطلاب الحاضرين كاملاً", "bg-emerald-700", `<i class="fa-solid fa-circle-check"></i>`, "present"],
+                absent: ["تقرير الطلاب الغائبين كاملاً", "bg-rose-700", `<i class="fa-solid fa-circle-xmark"></i>`, "absent"],
+                late: ["تقرير الطلاب المتأخرين كاملاً", "bg-amber-600", `<i class="fa-solid fa-clock"></i>`, "late"],
+                excused: ["تقرير الطلاب (بعذر / أخرى) كاملاً", "bg-slate-700", `<i class="fa-solid fa-file-signature"></i>`, "excused"],
+                other: ["قائمة الطلاب (المتأخرين أو بعذر)", "bg-amber-600", `<i class="fa-solid fa-clock"></i>`, ""],
+                high_absent: ["قائمة الطلاب المتجاوزين لـ 3 أيام غياب فأكثر", "bg-red-700", `<i class="fa-solid fa-triangle-exclamation"></i>`, ""],
+                participations: ["تقرير المشاركات كاملاً", "bg-sky-700", `<i class="fa-solid fa-lightbulb"></i>`, ""],
+                homework_done: ["تقرير الطلاب الذين سَلَّمُوا الواجب كاملاً", "bg-emerald-700", `<i class="fa-solid fa-circle-check"></i>`, ""],
+                homework_not: ["تقرير الطلاب الذين لَمْ يُسَلِّمُوا الواجب كاملاً", "bg-pink-700", `<i class="fa-solid fa-circle-xmark"></i>`, ""],
+                research: ["تقرير إنجاز الملف والبحوث كاملاً", "bg-amber-700", `<i class="fa-solid fa-folder-open"></i>`, ""],
+                forgot_file: ["تقرير نسيان الملف كاملاً", "bg-rose-700", `<i class="fa-solid fa-folder-closed"></i>`, ""],
+                behaviors: ["تقرير الملاحظات الخطية والسلوكيات كاملاً", "bg-purple-700", `<i class="fa-solid fa-pen-nib"></i>`, ""]
+            };
+            [typeTitle, headerBgClass, icon.innerHTML, statusName] = headerConfig[categoryType] || ["تفاصيل الفئة", "bg-indigo-900", "", ""];
             header.className = `p-4 sm:p-5 text-white flex justify-between items-center shrink-0 ${headerBgClass}`;
             title.textContent = typeTitle;
             subtitle.textContent = `اليوم: ${dayName} | التاريخ: ${targetDate} | الفصل: ${activeGroup} (إعداد: أ/ عبدالعزيز الفيفي)`;
 
-            const filteredStudents = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                return actGroup === 'الجميع' || sGroup === actGroup;
-            });
+            const filteredStudents = students.filter(s => activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
 
             if (categoryType === 'high_absent') {
-                filteredStudents.forEach((student) => {
+                filteredStudents.forEach(student => {
                     let absentCount = 0;
                     Object.keys(allAttendanceRecords).forEach(date => {
                         const recordObj = (allAttendanceRecords[date] || {})[student.id];
                         const st = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
                         if (st === 'absent') absentCount++;
                     });
-
                     if (absentCount >= 3) {
                         listCount++;
-                        let studentPortalLink = `${getBasePortalUrl()}?student=${student.id}${isReadOnly ? '&mode=view' : ''}`;
-
+                        const studentPortalLink = `${getBasePortalUrl()}?student=${student.id}${isReadOnly ? '&mode=view' : ''}`;
                         const card = document.createElement('div');
                         card.className = "p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between gap-2 flex-wrap shadow-sm hover:bg-slate-100 transition";
                         card.innerHTML = `
@@ -2698,16 +2305,18 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                         content.appendChild(card);
                     }
                 });
-            } else if (categoryType === 'other') {
-                filteredStudents.forEach((student) => {
+            } else if (categoryType === 'other' || ['present', 'absent', 'late', 'excused'].includes(categoryType)) {
+                filteredStudents.forEach(student => {
                     const recordObj = dayRecords[student.id];
                     if (!recordObj) return;
                     const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
                     const timeStr = typeof recordObj === 'object' && recordObj !== null ? recordObj.time : '-';
-
-                    if (status === 'late' || status === 'excused') {
+                    const matches = categoryType === 'other' ? (status === 'late' || status === 'excused') : (status === statusName);
+                    if (matches) {
                         listCount++;
-                        const statusTag = status === 'late' ? '<span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold mr-1">متأخر</span>' : '<span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold mr-1">بعذر</span>';
+                        const statusTag = categoryType === 'other'
+                            ? (status === 'late' ? '<span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold mr-1">متأخر</span>' : '<span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold mr-1">بعذر</span>')
+                            : '';
                         const card = document.createElement('div');
                         card.className = "p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between gap-2 flex-wrap shadow-sm hover:bg-slate-100 transition";
                         card.innerHTML = `
@@ -2726,72 +2335,34 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                         content.appendChild(card);
                     }
                 });
-            } else if (['present', 'absent', 'late', 'excused'].includes(categoryType)) {
-                filteredStudents.forEach((student) => {
-                    const recordObj = dayRecords[student.id];
-                    if (!recordObj) return;
-
-                    const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : recordObj;
-                    const timeStr = typeof recordObj === 'object' && recordObj !== null ? recordObj.time : '-';
-
-                    if (status === statusName) {
-                        listCount++;
-                        const card = document.createElement('div');
-                        card.className = "p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between gap-2 flex-wrap shadow-sm hover:bg-slate-100 transition";
-                        card.innerHTML = `
-                            <div class="flex items-center gap-3">
-                                <span class="w-7 h-7 bg-indigo-900 text-amber-300 font-black text-xs rounded-lg flex items-center justify-center shadow-sm">${listCount}</span>
-                                <div>
-                                    <h4 class="font-bold text-slate-800 text-sm">${escapeHtml(student.name)}</h4>
-                                    <p class="text-xs text-slate-500 font-medium">${escapeHtml(student.group)}${student.email ? ' | ' + escapeHtml(student.email) : ''}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs font-mono font-bold bg-white px-2.5 py-1 rounded-lg border border-slate-300 text-slate-700">⏰ ${timeStr}</span>
-                                ${getModalStatusEditorHTML(student.id, targetDate, status)}
-                            </div>
-                        `;
-                        content.appendChild(card);
-                    }
-                });
             } else {
-                filteredStudents.forEach((student) => {
+                filteredStudents.forEach(student => {
                     Object.keys(allBehaviorsRecords).forEach(d => {
-                        const logs = (allBehaviorsRecords[d] || {})[student.id] || [];
-                        logs.forEach((item, logIdx) => {
+                        ((allBehaviorsRecords[d] || {})[student.id] || []).forEach((item, logIdx) => {
                             const name = item.name || '';
                             const timeStr = item.time || '-';
                             const iconSymbol = item.icon || '⭐';
                             const isParticipation = name.includes('مشاركة') || name.includes('إجابة');
                             const isCustomNote = item.isCustomNote;
-
                             if (isParticipation && d !== targetDate) return;
 
                             let matchesCategory = false;
-                            if (categoryType === 'participations' && (isParticipation || (!name.includes('واجب') && !name.includes('ملف') && !name.includes('بحث') && !isCustomNote && item.score >= 0))) {
-                                matchesCategory = true;
-                            } else if (categoryType === 'homework_done' && name.includes('حل الواجب') && !name.includes('لم يحل')) {
-                                matchesCategory = true;
-                            } else if (categoryType === 'homework_not' && name.includes('لم يحل الواجب')) {
-                                matchesCategory = true;
-                            } else if (categoryType === 'research' && (name.includes('إنجاز ملف') || name.includes('بحث'))) {
-                                matchesCategory = true;
-                            } else if (categoryType === 'forgot_file' && name.includes('نسيان ملف')) {
-                                matchesCategory = true;
-                            } else if (categoryType === 'behaviors' && (isCustomNote || (!isParticipation && item.score < 0 && !name.includes('نسيان ملف')))) {
-                                matchesCategory = true;
-                            }
+                            if (categoryType === 'participations' && (isParticipation || (!name.includes('واجب') && !name.includes('ملف') && !name.includes('بحث') && !isCustomNote && item.score >= 0))) matchesCategory = true;
+                            else if (categoryType === 'homework_done' && name.includes('حل الواجب') && !name.includes('لم يحل')) matchesCategory = true;
+                            else if (categoryType === 'homework_not' && name.includes('لم يحل الواجب')) matchesCategory = true;
+                            else if (categoryType === 'research' && (name.includes('إنجاز ملف') || name.includes('بحث'))) matchesCategory = true;
+                            else if (categoryType === 'forgot_file' && name.includes('نسيان ملف')) matchesCategory = true;
+                            else if (categoryType === 'behaviors' && (isCustomNote || (!isParticipation && item.score < 0 && !name.includes('نسيان ملف')))) matchesCategory = true;
 
                             if (matchesCategory) {
                                 listCount++;
                                 const card = document.createElement('div');
                                 card.className = "p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between gap-2 flex-wrap shadow-sm hover:bg-slate-100 transition";
-                                let pulseBadgeHTML = (!isParticipation && !isCustomNote) ? '<span class="pulse-badge text-[10px] bg-rose-500 text-white px-1.5 py-0.5 rounded font-bold mr-1">دائم ⚠️</span>' : '';
-                                let deleteActionBtn = !isReadOnly ? `
+                                const pulseBadgeHTML = (!isParticipation && !isCustomNote) ? '<span class="pulse-badge text-[10px] bg-rose-500 text-white px-1.5 py-0.5 rounded font-bold mr-1">دائم ⚠️</span>' : '';
+                                const deleteActionBtn = !isReadOnly ? `
                                     <button onclick="removeBehaviorLogFromDate('${student.id}', '${d}', ${logIdx})" class="bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-sm" title="حذف وإزالة من هذه القائمة">
                                         <i class="fa-solid fa-trash-can"></i> حذف
-                                    </button>
-                                ` : '';
+                                    </button>` : '';
 
                                 card.innerHTML = `
                                     <div class="flex items-center gap-3">
@@ -2818,10 +2389,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 });
             }
 
-            if (listCount === 0) {
-                content.innerHTML = `<div class="p-8 text-center text-slate-400 font-bold">لا يوجد طلاب مسجلون تحت هذه الفئة في هذا التاريخ</div>`;
-            }
-
+            if (listCount === 0) content.innerHTML = `<div class="p-8 text-center text-slate-400 font-bold">لا يوجد طلاب مسجلون تحت هذه الفئة في هذا التاريخ</div>`;
             countBadge.textContent = `العدد الإجمالي: ${listCount} سجل/طالب`;
             modal.classList.remove('hidden');
         }
@@ -2833,34 +2401,21 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
         function fetchAttendanceForDate(dateStr) {
             db.collection("attendance_records").doc(dateStr).onSnapshot((doc) => {
-                if (doc.exists) {
-                    attendanceData = doc.data().records || {};
-                } else {
-                    attendanceData = {};
-                }
-                if(!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) renderTable();
-            }, (error) => {
-                console.error("Attendance fetch error:", error);
-            });
+                attendanceData = doc.exists ? (doc.data().records || {}) : {};
+                if (!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) renderTable();
+            }, (error) => console.error("Attendance fetch error:", error));
         }
 
         function fetchBehaviorsForDate(dateStr) {
             db.collection("student_behaviors_records").doc(dateStr).onSnapshot((doc) => {
-                if (doc.exists) {
-                    studentBehaviorsData = doc.data().records || {};
-                } else {
-                    studentBehaviorsData = {};
-                }
-                if(!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) renderTable();
-            }, (error) => {
-                console.error("Behaviors fetch error:", error);
-            });
+                studentBehaviorsData = doc.exists ? (doc.data().records || {}) : {};
+                if (!isStudentPortal && !isUnifiedStudentLogin && !window.pendingViewCategory) renderTable();
+            }, (error) => console.error("Behaviors fetch error:", error));
         }
 
         function populatePresetDropdown() {
             presetStudentsList.innerHTML = '';
-            const sortedPreset = [...allowedStudentsPreset].sort((a, b) => a.localeCompare(b, 'ar'));
-            sortedPreset.forEach(name => {
+            [...allowedStudentsPreset].sort((a, b) => a.localeCompare(b, 'ar')).forEach(name => {
                 const opt = document.createElement('option');
                 opt.value = name;
                 presetStudentsList.appendChild(opt);
@@ -2873,15 +2428,11 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const numMap = getStudentNumberMap();
 
             const filteredStudents = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                const matchesGroup = (actGroup === 'الجميع' || sGroup === actGroup);
+                const matchesGroup = (activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
                 const stNumStr = String(numMap[s.id] || '');
                 const matchesSearch = s.name.toLowerCase().includes(searchTerm) || s.email.toLowerCase().includes(searchTerm) || stNumStr === searchTerm;
                 return matchesGroup && matchesSearch;
-            });
-
-            filteredStudents.sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+            }).sort((a, b) => a.name.localeCompare(b.name, 'ar'));
 
             if (filteredStudents.length === 0) {
                 studentsGridContainer.innerHTML = '';
@@ -2895,12 +2446,10 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
             for (let i = 0; i < filteredStudents.length; i += 2) {
                 const student1 = filteredStudents[i];
-                const student2 = filteredStudents[i+1];
+                const student2 = filteredStudents[i + 1];
                 const rowIndex = Math.floor(i / 2);
-                const rowClassStyle = rowIndex % 2 === 0 ? 'row-container-even' : 'row-container-odd';
-
                 const rowDiv = document.createElement('div');
-                rowDiv.className = `${rowClassStyle} rounded-3xl p-4 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-4`;
+                rowDiv.className = `${rowIndex % 2 === 0 ? 'row-container-even' : 'row-container-odd'} rounded-3xl p-4 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-4`;
 
                 const buildStudentCardHTML = (student) => {
                     const studentNumber = numMap[student.id] || '';
@@ -2908,9 +2457,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                     const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : (recordObj || 'unmarked');
                     const timestamp = typeof recordObj === 'object' && recordObj !== null ? recordObj.time : '';
 
-                    let stPresentCount = 0;
-                    let stAbsentCount = 0;
-                    let stLateCount = 0;
+                    let stPresentCount = 0, stAbsentCount = 0, stLateCount = 0;
                     Object.keys(allAttendanceRecords).forEach(d => {
                         const rec = (allAttendanceRecords[d] || {})[student.id];
                         const st = typeof rec === 'object' && rec !== null ? rec.status : rec;
@@ -2921,52 +2468,17 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
                     const attendanceBadgesHTML = `
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200" title="إجمالي أيام الحضور">
-                                <i class="fa-solid fa-circle-check text-[10px]"></i> ${stPresentCount} حضور
-                            </span>
-                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-200" title="إجمالي أيام الغياب">
-                                <i class="fa-solid fa-circle-xmark text-[10px]"></i> ${stAbsentCount} غياب
-                            </span>
-                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-200" title="إجمالي أيام التأخر">
-                                <i class="fa-solid fa-clock text-[10px]"></i> ${stLateCount} تأخر
-                            </span>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200"><i class="fa-solid fa-circle-check text-[10px]"></i> ${stPresentCount} حضور</span>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-200"><i class="fa-solid fa-circle-xmark text-[10px]"></i> ${stAbsentCount} غياب</span>
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-200"><i class="fa-solid fa-clock text-[10px]"></i> ${stLateCount} تأخر</span>
                         </div>
                     `;
 
                     let statusBadge = `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500">غير محدد</span>`;
-                    if (status === 'present') {
-                        statusBadge = `
-                            <div class="flex items-center gap-2">
-                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
-                                    <i class="fa-solid fa-check text-emerald-600"></i> حاضر
-                                </span>
-                                ${timestamp ? `<span class="text-[11px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-emerald-200">⏰ ${timestamp}</span>` : ''}
-                            </div>`;
-                    } else if (status === 'absent') {
-                        statusBadge = `
-                            <div class="flex items-center gap-2">
-                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800">
-                                    <i class="fa-solid fa-xmark text-rose-600"></i> غائب
-                                </span>
-                                ${timestamp ? `<span class="text-[11px] bg-rose-50 text-rose-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-rose-200">⏰ ${timestamp}</span>` : ''}
-                            </div>`;
-                    } else if (status === 'late') {
-                        statusBadge = `
-                            <div class="flex items-center gap-2">
-                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
-                                    <i class="fa-solid fa-clock text-amber-600"></i> متأخر
-                                </span>
-                                ${timestamp ? `<span class="text-[11px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-amber-200">⏰ ${timestamp}</span>` : ''}
-                            </div>`;
-                    } else if (status === 'excused') {
-                        statusBadge = `
-                            <div class="flex items-center gap-2">
-                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800">
-                                    <i class="fa-solid fa-file-signature text-blue-600"></i> بعذر
-                                </span>
-                                ${timestamp ? `<span class="text-[11px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-blue-200">⏰ ${timestamp}</span>` : ''}
-                            </div>`;
-                    }
+                    if (status === 'present') statusBadge = `<div class="flex items-center gap-2"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800"><i class="fa-solid fa-check text-emerald-600"></i> حاضر</span>${timestamp ? `<span class="text-[11px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-emerald-200">⏰ ${timestamp}</span>` : ''}</div>`;
+                    else if (status === 'absent') statusBadge = `<div class="flex items-center gap-2"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800"><i class="fa-solid fa-xmark text-rose-600"></i> غائب</span>${timestamp ? `<span class="text-[11px] bg-rose-50 text-rose-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-rose-200">⏰ ${timestamp}</span>` : ''}</div>`;
+                    else if (status === 'late') statusBadge = `<div class="flex items-center gap-2"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800"><i class="fa-solid fa-clock text-amber-600"></i> متأخر</span>${timestamp ? `<span class="text-[11px] bg-amber-50 text-amber-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-amber-200">⏰ ${timestamp}</span>` : ''}</div>`;
+                    else if (status === 'excused') statusBadge = `<div class="flex items-center gap-2"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800"><i class="fa-solid fa-file-signature text-blue-600"></i> بعذر</span>${timestamp ? `<span class="text-[11px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md font-mono font-semibold border border-blue-200">⏰ ${timestamp}</span>` : ''}</div>`;
 
                     let behaviorOptionsHTML = `<option value="">+ رصد مشاركة أو ملاحظة...</option>`;
                     defaultActions.forEach((act, idx) => {
@@ -2975,17 +2487,11 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
                     let combinedLogs = [];
                     Object.keys(allBehaviorsRecords).forEach(d => {
-                        const logs = (allBehaviorsRecords[d] || {})[student.id] || [];
-                        logs.forEach((log, logIdx) => {
+                        ((allBehaviorsRecords[d] || {})[student.id] || []).forEach((log, logIdx) => {
                             const isParticipation = log.name.includes('مشاركة') || log.name.includes('إجابة');
                             const isCustomNote = log.isCustomNote;
                             if (d === currentDate || (!isParticipation && !isCustomNote)) {
-                                combinedLogs.push({
-                                    ...log,
-                                    originDate: d,
-                                    logIdx: logIdx,
-                                    isPermanent: !isParticipation && !isCustomNote && d !== currentDate
-                                });
+                                combinedLogs.push({ ...log, originDate: d, logIdx, isPermanent: !isParticipation && !isCustomNote && d !== currentDate });
                             }
                         });
                     });
@@ -2994,10 +2500,11 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                     if (combinedLogs.length === 0) {
                         logsHTML += `<span class="text-slate-400 text-xs italic px-2 py-1">لا توجد تقييمات مسجلة</span>`;
                     } else {
-                        combinedLogs.forEach((log) => {
-                            let badgeColor = log.score > 0 ? "bg-emerald-50 text-emerald-700 border-emerald-200" : (log.score < 0 ? "bg-rose-50 text-rose-700 border-rose-200" : "bg-indigo-50 text-indigo-700 border-indigo-200");
-                            let pulseStyle = log.isPermanent ? " pulse-badge" : "";
-                            
+                        combinedLogs.forEach(log => {
+                            const badgeColor = log.score > 0
+                                ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                : (log.score < 0 ? "bg-rose-50 text-rose-700 border-rose-200" : "bg-indigo-50 text-indigo-700 border-indigo-200");
+                            const pulseStyle = log.isPermanent ? " pulse-badge" : "";
                             logsHTML += `
                                 <span class="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-lg border ${badgeColor}${pulseStyle}" title="اليوم: ${getArabicDayNameFromStr(log.originDate)} ${log.originDate} - ${log.time}">
                                     <span>${log.icon}</span>
@@ -3009,100 +2516,60 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                     }
                     logsHTML += `</div>`;
 
-                    let studentPortalLink = `${getBasePortalUrl()}?student=${student.id}${isReadOnly ? '&mode=view' : ''}`;
+                    const studentPortalLink = `${getBasePortalUrl()}?student=${student.id}${isReadOnly ? '&mode=view' : ''}`;
                     return `
                         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between gap-3 hover:shadow-md transition relative">
                             <div class="flex justify-between items-start gap-3">
                                 <div class="flex items-start gap-2.5">
-                                    <div class="w-9 h-9 bg-indigo-950 text-amber-300 rounded-xl flex items-center justify-center font-black text-base shadow-sm border border-indigo-800 shrink-0 mt-0.5" title="رقم الطالب للنداء">
-                                        ${studentNumber}
-                                    </div>
+                                    <div class="w-9 h-9 bg-indigo-950 text-amber-300 rounded-xl flex items-center justify-center font-black text-base shadow-sm border border-indigo-800 shrink-0 mt-0.5" title="رقم الطالب للنداء">${studentNumber}</div>
                                     <div>
                                         <h3 class="text-base font-black text-slate-900">${escapeHtml(student.name)}</h3>
                                         <p class="text-xs font-medium text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-md inline-block mt-1">${escapeHtml(student.email || '—')}</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-2 shrink-0">
-                                    <span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-xl text-xs font-bold border border-indigo-100">${escapeHtml(student.group)}</span>
-                                </div>
+                                <span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-xl text-xs font-bold border border-indigo-100 shrink-0">${escapeHtml(student.group)}</span>
                             </div>
 
                             <div class="space-y-2 pt-2 border-t border-slate-100">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold text-slate-500">الحالة اليومية:</span>
-                                    ${statusBadge}
-                                </div>
+                                <div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-500">الحالة اليومية:</span>${statusBadge}</div>
                                 ${attendanceBadgesHTML}
                             </div>
 
                             ${!isReadOnly ? `
                             <div class="grid grid-cols-4 gap-1.5">
-                                <button onclick="setStatus('${student.id}', 'present')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'present' ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' : 'bg-white text-emerald-700 border-emerald-200 hover:bg-emerald-50'}">
-                                    <i class="fa-solid fa-check"></i> حاضر
-                                </button>
-                                <button onclick="setStatus('${student.id}', 'absent')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'absent' ? 'bg-rose-600 text-white border-rose-600 shadow-sm' : 'bg-white text-rose-700 border-rose-200 hover:bg-rose-50'}">
-                                    <i class="fa-solid fa-xmark"></i> غائب
-                                </button>
-                                <button onclick="setStatus('${student.id}', 'late')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'late' ? 'bg-amber-600 text-white border-amber-600 shadow-sm' : 'bg-white text-amber-700 border-amber-200 hover:bg-amber-50'}">
-                                    <i class="fa-solid fa-clock"></i> متأخر
-                                </button>
-                                <button onclick="setStatus('${student.id}', 'excused')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'excused' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'}">
-                                    <i class="fa-solid fa-file-signature"></i> بعذر
-                                </button>
-                            </div>
-                            ` : ''}
+                                <button onclick="setStatus('${student.id}', 'present')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'present' ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm' : 'bg-white text-emerald-700 border-emerald-200 hover:bg-emerald-50'}"><i class="fa-solid fa-check"></i> حاضر</button>
+                                <button onclick="setStatus('${student.id}', 'absent')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'absent' ? 'bg-rose-600 text-white border-rose-600 shadow-sm' : 'bg-white text-rose-700 border-rose-200 hover:bg-rose-50'}"><i class="fa-solid fa-xmark"></i> غائب</button>
+                                <button onclick="setStatus('${student.id}', 'late')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'late' ? 'bg-amber-600 text-white border-amber-600 shadow-sm' : 'bg-white text-amber-700 border-amber-200 hover:bg-amber-50'}"><i class="fa-solid fa-clock"></i> متأخر</button>
+                                <button onclick="setStatus('${student.id}', 'excused')" class="py-1.5 px-1 rounded-lg text-xs font-bold border transition ${status === 'excused' ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-50'}"><i class="fa-solid fa-file-signature"></i> بعذر</button>
+                            </div>` : ''}
 
                             <div class="space-y-1">
-                                ${!isReadOnly ? `
-                                <select onchange="handleBehaviorDropdown('${student.id}', this)" class="w-full py-1.5 px-2.5 text-xs border border-indigo-200 rounded-xl bg-indigo-50/60 text-indigo-900 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    ${behaviorOptionsHTML}
-                                </select>
-                                ` : ''}
+                                ${!isReadOnly ? `<select onchange="handleBehaviorDropdown('${student.id}', this)" class="w-full py-1.5 px-2.5 text-xs border border-indigo-200 rounded-xl bg-indigo-50/60 text-indigo-900 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500">${behaviorOptionsHTML}</select>` : ''}
                                 ${logsHTML}
                             </div>
 
                             <div class="pt-2 border-t border-slate-100 flex justify-between items-center">
-                                <a href="${studentPortalLink}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
-                                    <i class="fa-solid fa-link"></i> ملف الطالب الفردي
-                                </a>
-                                ${!isReadOnly ? `
-                                <button onclick="deleteStudent('${student.id}')" class="text-rose-500 hover:text-rose-700 text-xs font-bold flex items-center gap-1 transition" title="حذف الطالب">
-                                    <i class="fa-regular fa-trash-can"></i> حذف
-                                </button>
-                                ` : ''}
+                                <a href="${studentPortalLink}" target="_blank" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"><i class="fa-solid fa-link"></i> ملف الطالب الفردي</a>
+                                ${!isReadOnly ? `<button onclick="deleteStudent('${student.id}')" class="text-rose-500 hover:text-rose-700 text-xs font-bold flex items-center gap-1 transition" title="حذف الطالب"><i class="fa-regular fa-trash-can"></i> حذف</button>` : ''}
                             </div>
                         </div>
                     `;
                 };
 
-                let rowHTML = buildStudentCardHTML(student1);
-                if (student2) {
-                    rowHTML += buildStudentCardHTML(student2);
-                } else {
-                    rowHTML += `<div></div>`;
-                }
-
-                rowDiv.innerHTML = rowHTML;
+                rowDiv.innerHTML = buildStudentCardHTML(student1) + (student2 ? buildStudentCardHTML(student2) : `<div></div>`);
                 studentsGridContainer.appendChild(rowDiv);
             }
-
             updateStats();
         }
 
         window.handleBehaviorDropdown = function(studentId, selectElement) {
             const val = selectElement.value;
             if (val === "") return;
-            const actionIdx = parseInt(val);
-            const action = defaultActions[actionIdx];
+            const action = defaultActions[parseInt(val)];
             selectElement.value = "";
-
             if (!action) return;
-
-            if (action.isCustomNote) {
-                openCustomNoteModal(studentId);
-            } else {
-                addBehaviorLog(studentId, action);
-            }
+            if (action.isCustomNote) openCustomNoteModal(studentId);
+            else addBehaviorLog(studentId, action);
         };
 
         function openCustomNoteModal(studentId) {
@@ -3127,28 +2594,13 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 showToast('يرجى كتابة نص الملاحظة أولاً', 'warning');
                 return;
             }
-
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            const timeString = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
             const updatedBehaviors = { ...studentBehaviorsData };
-            if (!updatedBehaviors[currentCustomNoteStudentId]) {
-                updatedBehaviors[currentCustomNoteStudentId] = [];
-            }
-
-            updatedBehaviors[currentCustomNoteStudentId].push({
-                icon: '📝',
-                name: noteText,
-                score: 0,
-                time: timeString,
-                isCustomNote: true
-            });
+            if (!updatedBehaviors[currentCustomNoteStudentId]) updatedBehaviors[currentCustomNoteStudentId] = [];
+            updatedBehaviors[currentCustomNoteStudentId].push({ icon: '📝', name: noteText, score: 0, time: timeString, isCustomNote: true });
 
             try {
-                await db.collection("student_behaviors_records").doc(currentDate).set({
-                    records: updatedBehaviors,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
+                await db.collection("student_behaviors_records").doc(currentDate).set({ records: updatedBehaviors, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
                 showToast('تم حفظ الملاحظة الخطية بنجاح ☁️', 'cloud');
                 closeCustomNoteModal();
             } catch (error) {
@@ -3159,26 +2611,13 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
         async function addBehaviorLog(studentId, action) {
             if (isReadOnly || isStudentPortal) return;
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            const timeString = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
             const updatedBehaviors = { ...studentBehaviorsData };
-            if (!updatedBehaviors[studentId]) {
-                updatedBehaviors[studentId] = [];
-            }
-
-            updatedBehaviors[studentId].push({
-                icon: action.icon,
-                name: action.name,
-                score: action.score,
-                time: timeString
-            });
+            if (!updatedBehaviors[studentId]) updatedBehaviors[studentId] = [];
+            updatedBehaviors[studentId].push({ icon: action.icon, name: action.name, score: action.score, time: timeString });
 
             try {
-                await db.collection("student_behaviors_records").doc(currentDate).set({
-                    records: updatedBehaviors,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
+                await db.collection("student_behaviors_records").doc(currentDate).set({ records: updatedBehaviors, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
                 showToast(`تم تسجيل (${action.name}) للطالب بنجاح ☁️`, 'cloud');
             } catch (error) {
                 console.error("Error saving behavior:", error);
@@ -3189,24 +2628,16 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         window.setStatus = async function(studentId, status) {
             if (isReadOnly || isStudentPortal) return;
             const updatedRecords = { ...attendanceData };
-
             if (status === 'unmarked' || status === '') {
                 delete updatedRecords[studentId];
             } else {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
                 updatedRecords[studentId] = {
                     status: status,
-                    time: timeString
+                    time: new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })
                 };
             }
-
             try {
-                await db.collection("attendance_records").doc(currentDate).set({
-                    records: updatedRecords,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
+                await db.collection("attendance_records").doc(currentDate).set({ records: updatedRecords, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
                 showToast('تم حفظ الحالة والوقت سحابياً ☁️', 'cloud');
             } catch (error) {
                 console.error("Error saving status:", error);
@@ -3220,38 +2651,20 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 const docRef = db.collection("student_behaviors_records").doc(dateStr);
                 const doc = await docRef.get();
                 if (!doc.exists) return;
-
                 let targetDateBehaviors = doc.data().records || {};
                 let studentLogs = targetDateBehaviors[studentId] || [];
                 if (studentLogs.length <= logIndex) return;
-
                 studentLogs.splice(logIndex, 1);
-                if (studentLogs.length === 0) {
-                    delete targetDateBehaviors[studentId];
-                } else {
-                    targetDateBehaviors[studentId] = studentLogs;
-                }
+                if (studentLogs.length === 0) delete targetDateBehaviors[studentId];
+                else targetDateBehaviors[studentId] = studentLogs;
 
-                await docRef.set({
-                    records: targetDateBehaviors,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-
+                await docRef.set({ records: targetDateBehaviors, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
                 if (allBehaviorsRecords[dateStr]) {
-                    if (studentLogs.length === 0) {
-                        delete allBehaviorsRecords[dateStr][studentId];
-                    } else {
-                        allBehaviorsRecords[dateStr][studentId] = studentLogs;
-                    }
+                    if (studentLogs.length === 0) delete allBehaviorsRecords[dateStr][studentId];
+                    else allBehaviorsRecords[dateStr][studentId] = studentLogs;
                 }
-
-                if (isStudentPortal) {
-                    renderStudentPortalView();
-                } else {
-                    renderTable();
-                    refreshOpenCategoryModalIfActive();
-                }
-
+                if (isStudentPortal) renderStudentPortalView();
+                else { renderTable(); refreshOpenCategoryModalIfActive(); }
                 showToast('تم حذف السجل بنجاح ☁️', 'info');
             } catch (error) {
                 console.error("Error removing behavior:", error);
@@ -3262,13 +2675,13 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
         window.deleteStudent = async function(studentId) {
             if (isReadOnly || isStudentPortal) return;
             if (!confirm("هل أنت متأكد من حذف الطالب من سجل السحابة؟")) return;
-
             try {
                 const delBatch = db.batch();
                 const sRef = db.collection("attendance_students").doc(studentId);
                 delBatch.delete(sRef.collection("private").doc("info"));
                 delBatch.delete(sRef);
                 await delBatch.commit();
+                delete teacherEmails[studentId];
                 showToast('تم حذف الطالب من السحابة', 'info');
             } catch (error) {
                 console.error("Error deleting student:", error);
@@ -3278,27 +2691,14 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
         function updateStats() {
             if (isStudentPortal || isUnifiedStudentLogin) return;
-            const activeStudents = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                return actGroup === 'الجميع' || sGroup === actGroup;
-            });
-
+            const activeStudents = students.filter(s => activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
             const totalEl = document.getElementById('statTotal');
             if (totalEl) totalEl.textContent = activeStudents.length;
         }
 
         function setupEventListeners() {
             if (isStudentPortal || isUnifiedStudentLogin) return;
-            selectedDateInput.addEventListener('change', (e) => {
-                currentDate = e.target.value;
-                updateSelectedDateLabels();
-                renderDailyLessonCards();
-                fetchAttendanceForDate(currentDate);
-                fetchBehaviorsForDate(currentDate);
-                renderSingleDayReport();
-            });
-
+            selectedDateInput.addEventListener('change', (e) => onDateInputChanged(e.target.value));
             document.getElementById('todayBtn').addEventListener('click', () => {
                 currentDate = localDateStr();
                 selectedDateInput.value = currentDate;
@@ -3308,26 +2708,20 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 fetchBehaviorsForDate(currentDate);
                 renderSingleDayReport();
             });
-
             searchInput.addEventListener('input', renderTable);
 
             async function addStudentFromInput() {
                 if (isReadOnly) return;
                 const name = quickStudentInput.value.trim();
-                if (!name) {
-                    showToast('يرجى اختيار أو كتابة اسم الطالب أولاً', 'warning');
-                    return;
-                }
-
+                if (!name) { showToast('يرجى اختيار أو كتابة اسم الطالب أولاً', 'warning'); return; }
                 const targetGroup = activeGroup === 'الجميع' ? (groups[0] || 'عام') : activeGroup;
                 if (students.some(s => s.name === name && s.group.trim() === targetGroup.trim())) {
                     showToast('الطالب موجود مسبقاً في هذا الفصل', 'warning');
                     quickStudentInput.value = '';
                     return;
                 }
-
                 try {
-                    await addStudentSecure(name, targetGroup.trim(), "s" + randomDigits(6) + "@rb.moe.gov.sa");
+                    await addStudentSecure(name, targetGroup.trim(), `s${randomDigits(6)}@rb.moe.gov.sa`);
                     showToast(`تم إضافة ${name} إلى (${targetGroup})`, 'success');
                     quickStudentInput.value = '';
                 } catch (err) {
@@ -3337,10 +2731,7 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
             addQuickStudentBtn.addEventListener('click', addStudentFromInput);
             quickStudentInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    addStudentFromInput();
-                }
+                if (e.key === 'Enter') { e.preventDefault(); addStudentFromInput(); }
             });
 
             const closeModal = () => addModal.classList.add('hidden');
@@ -3352,48 +2743,38 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
                 const rawText = bulkNamesInput.value.trim();
                 const selectedGroup = modalGroupSelector.value.trim();
                 const lines = rawText ? rawText.split('\n').map(line => line.trim()).filter(line => line.length > 0) : [];
-
-                if (!selectedGroup) {
-                    showToast('يرجى تحديد الفصل أولاً', 'warning');
-                    return;
-                }
+                if (!selectedGroup) { showToast('يرجى تحديد الفصل أولاً', 'warning'); return; }
 
                 try {
                     const batch = db.batch();
                     for (let i = 0; i < lines.length; i++) {
                         let line1 = lines[i];
-                        let line2 = lines[i+1];
+                        let line2 = lines[i + 1];
                         let name = "", email = "";
                         if (line2 && line2.includes('@')) {
                             name = line1.replace(/@\S+/g, '').trim();
                             email = line2.trim().toLowerCase();
                             i++;
+                        } else if (line1.includes('@')) {
+                            const parts = line1.split(/\s+/);
+                            email = (parts.find(p => p.includes('@')) || '').toLowerCase();
+                            name = parts.filter(p => !p.includes('@')).join(' ');
                         } else {
-                            if (line1.includes('@')) {
-                                let parts = line1.split(/\s+/);
-                                email = parts.find(p => p.includes('@')) || '';
-                                name = parts.filter(p => !p.includes('@')).join(' ');
-                            } else {
-                                name = line1;
-                                email = `s${randomDigits(6)}@rb.moe.gov.sa`;
-                            }
+                            name = line1;
+                            email = `s${randomDigits(6)}@rb.moe.gov.sa`;
                         }
-
-                        if (name) {
-                            const exists = students.some(s => s.name === name && s.group.trim() === selectedGroup);
-                            if (!exists) {
-                                const newDocRef = db.collection("attendance_students").doc();
-                                batch.set(newDocRef, {
-                                    name: name,
-                                    group: selectedGroup,
-                                    emailHash: await sha256Hex(email),
-                                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                                });
-                                batch.set(newDocRef.collection("private").doc("info"), { email: email });
-                            }
+                        if (name && !students.some(s => s.name === name && s.group.trim() === selectedGroup)) {
+                            const newDocRef = db.collection("attendance_students").doc();
+                            batch.set(newDocRef, {
+                                name: name,
+                                group: selectedGroup,
+                                emailHash: await sha256Hex(email),
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                            batch.set(newDocRef.collection("private").doc("info"), { email: email });
+                            teacherEmails[newDocRef.id] = email;
                         }
                     }
-
                     await batch.commit();
                     showToast(`تم حفظ الأسماء والإيميلات في فصل (${selectedGroup}) بالسحابة! ☁️`, 'cloud');
                     closeModal();
@@ -3406,31 +2787,19 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
 
         function exportToCSV() {
             const numMap = getStudentNumberMap();
-            const activeStudents = students.filter(s => {
-                const sGroup = (s.group || '').trim();
-                const actGroup = activeGroup.trim();
-                return actGroup === 'الجميع' || sGroup === actGroup;
-            });
+            const activeStudents = students.filter(s => activeGroup.trim() === 'الجميع' || (s.group || '').trim() === activeGroup.trim());
+            if (activeStudents.length === 0) { showToast('لا توجد بيانات للتصدير!', 'warning'); return; }
 
-            if (activeStudents.length === 0) {
-                showToast('لا توجد بيانات للتصدير!', 'warning');
-                return;
-            }
-
-            let csvContent = "\uFEFF"; 
-            csvContent += `الرقم,اسم الطالب,البريد الإلكتروني,الفصل/المجموعة,حالة الحضور ووقت الرصد\n`;
-
+            let csvContent = "\uFEFFالرقم,اسم الطالب,البريد الإلكتروني,الفصل/المجموعة,حالة الحضور ووقت الرصد\n";
             activeStudents.forEach(student => {
                 const recordObj = attendanceData[student.id];
                 const status = typeof recordObj === 'object' && recordObj !== null ? recordObj.status : (recordObj || 'غير محدد');
                 const timeStr = typeof recordObj === 'object' && recordObj !== null ? recordObj.time : '';
-
                 let translatedStatus = 'غير محدد';
                 if (status === 'present') translatedStatus = `حاضر (${timeStr})`;
                 if (status === 'absent') translatedStatus = `غائب (${timeStr})`;
                 if (status === 'late') translatedStatus = `متأخر (${timeStr})`;
                 if (status === 'excused') translatedStatus = `بعذر (${timeStr})`;
-
                 csvContent += `"${numMap[student.id] || ''}","${student.name.replace(/"/g, '""')}","${student.email}","${student.group}","${translatedStatus}"\n`;
             });
 
@@ -3467,18 +2836,12 @@ s789012@rb.moe.gov.sa" class="w-full border border-slate-300 rounded-xl p-3 text
             const toastText = document.getElementById('toastText');
             const toastIcon = document.getElementById('toastIcon');
             toastText.textContent = message;
-
-            if (type === 'cloud') {
-                toastIcon.className = 'fa-solid fa-cloud-arrow-up text-indigo-400';
-            } else if (type === 'warning') {
-                toastIcon.className = 'fa-solid fa-triangle-exclamation text-amber-400';
-            } else {
-                toastIcon.className = 'fa-solid fa-circle-check text-emerald-400';
-            }
+            toastIcon.className = type === 'cloud'
+                ? 'fa-solid fa-cloud-arrow-up text-indigo-400'
+                : (type === 'warning' ? 'fa-solid fa-triangle-exclamation text-amber-400' : 'fa-solid fa-circle-check text-emerald-400');
 
             toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-2');
             toast.classList.add('opacity-100', 'translate-y-0');
-
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-2');
                 toast.classList.remove('opacity-100', 'translate-y-0');
